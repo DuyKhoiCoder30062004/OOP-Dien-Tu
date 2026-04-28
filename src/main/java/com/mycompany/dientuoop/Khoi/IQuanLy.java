@@ -8,12 +8,12 @@ package com.mycompany.dientuoop.Khoi;
  *
  * @author HELLO
  */
-public interface IQuanLy {
+public interface IQuanLy<T> {
     //giong abstract
     public void nhap();
     public void xuat();
-    public void them();
-    public void sua();
-    public void xoa();
-    public void timKiem();
+    public void them(T obj);
+    public void sua(String id);
+    public void xoa(String id);
+    public T timKiem(String id);
 }

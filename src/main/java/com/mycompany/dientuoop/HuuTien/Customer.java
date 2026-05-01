@@ -63,9 +63,12 @@ public class Customer implements Discountable, Serializable {
     @Override
     public double applyDiscount(double totalAmount) {
         if(this.diemTichLuy >= 1000) {
+            System.out.print(totalAmount*0.1);
             return totalAmount * 0.1; // Giảm giá 10% nếu điểm tích lũy >= 1000
         } else if(this.diemTichLuy >= 500) {
+            System.out.print(totalAmount*0.05);
             return totalAmount * 0.05; // Giảm giá 5% nếu điểm tích lũy >= 500
+            
         } else {
             return 0; // Không giảm giá nếu điểm tích lũy < 500
         }
@@ -88,5 +91,11 @@ public class Customer implements Discountable, Serializable {
     public void xuat() {
         System.out.printf("Mã KH: %s | Tên KH: %s | Loại KH: %s | Điểm tích lũy: %d | Tình trạng: %d\n", 
                 maKH, tenKH, loaiKH, diemTichLuy, tinhTrang);
+    }
+    public static void main(String[] args){
+        Customer m = new Customer();
+        m.nhap();
+        m.xuat();
+        m.applyDiscount(10000);
     }
 }

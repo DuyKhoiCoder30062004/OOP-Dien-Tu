@@ -10,16 +10,63 @@ package com.mycompany.dientuoop.AnhVu;
  */
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
-public class EmployeeList {
-//    public static void main(String[] args)throws Exception {
-//        // Ép System.out dùng UTF-8 - cach su dung mẫu
-//        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-//        Scanner s = new Scanner(System.in);
-//        String c = s.nextLine();
-//        System.out.println("Xin chào, tiếng Việt có dấu!");
-//        System.out.print("xin chào" + c);
-//    }
+// EmployeeList Class
+class EmployeeList {
+    private List<Employee> dsNhanVien;
+    private int soLuongNV;
+
+    public EmployeeList() {
+        dsNhanVien = new ArrayList<>();
+        soLuongNV = 0;
+    }
+
+    public Employee timKiem(String ma) {
+        for (Employee e : dsNhanVien) {
+            if (e.getMaNV().equals(ma)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public double thongKeLuong() {
+        double tongLuong = 0;
+        for (Employee e : dsNhanVien) {
+            tongLuong += e.tinhLuong();
+        }
+        return tongLuong;
+    }
+
+    public void them(Employee e) {
+        dsNhanVien.add(e);
+        soLuongNV++;
+    }
+
+    public void sua(String maNV) {
+        Employee e = timKiem(maNV);
+        if (e != null) {
+            // Example: update status
+            e.setTinhTrang(1);
+            System.out.println("Updated employee: " + e.getHoTen());
+        }
+    }
+
+    public void xoa(String maNV) {
+        Employee e = timKiem(maNV);
+        if (e != null) {
+            dsNhanVien.remove(e);
+            soLuongNV--;
+            System.out.println("Removed employee: " + e.getHoTen());
+        }
+    }
+
+    public List<Employee> getAll() {
+        return dsNhanVien;
+    }
 }
+

@@ -27,3 +27,7 @@
 //        return 1;
 //    }
 //}
+public class Utils{
+    
+   
+}

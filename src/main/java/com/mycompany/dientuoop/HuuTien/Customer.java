@@ -97,5 +97,6 @@ public class Customer implements Discountable, Serializable {
         m.nhap();
         m.xuat();
         m.applyDiscount(10000);
+        
     }
 }

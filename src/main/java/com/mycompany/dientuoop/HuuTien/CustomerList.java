@@ -10,6 +10,7 @@ import com.mycompany.dientuoop.Khoi.FileHandler;
  *`/
  * @author HELLO
  */
+////dependency FileHandler
 public class CustomerList implements IQuanLy<Customer> {
     private  Customer[] customers;
         private int soluongKH;
@@ -18,7 +19,7 @@ public class CustomerList implements IQuanLy<Customer> {
         public CustomerList() {
             this.customers = new Customer[100]; // Giả sử tối đa 100 khách hàng
             this.soluongKH = 0;
-            this.fileHandler = new FileHandler();
+            this.fileHandler = fileHandler;
         }
 
     @Override

@@ -4,24 +4,34 @@
  */
 package com.mycompany.dientuoop.HuuTien;
 
+import com.mycompany.dientuoop.Khoi.FileHandler;
 import java.util.Scanner;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 /**
  *
  * @author HELLO
  */
+//dependency FileHandler
+
 class OrderList implements IQuanLy<Order> {
     // Khai báo mảng chứa các hóa đơn và số lượng hiện tại
     private Order[] dsHoaDon;
     private int soLuongHD;
-    // private FileHandler fileHandler; // Tạm chờ lớp FileHandler
+     private FileHandler fileHandler; // Tạm chờ lớp FileHandler
 
-    public OrderList() {
+    public OrderList(FileHandler fileHandler) {
         // Khởi tạo mảng tĩnh chứa tối đa 100 hóa đơn
-        dsHoaDon = new Order[100];
-        soLuongHD = 0;
+        this.dsHoaDon = new Order[100];
+        this.fileHandler = fileHandler;
+        this.soLuongHD = 0;
+        
     }
 
+//    public ImportList(FileHandler fileHandler) {
+//        this.danhSachPN = new ArrayList<>();
+//        this.fileHandler = fileHandler;
+//        this.soLuongPN = 0;
+//    }
     @Override
     public void nhap() {
         Scanner sc = new Scanner(System.in);
@@ -110,7 +120,7 @@ class OrderList implements IQuanLy<Order> {
 
         for (int i = 0; i < soLuongHD; i++) {
             // Giả sử chỉ cộng tiền những đơn đã thanh toán (tinhTrangDon == 1)
-            if (dsHoaDon[i].getTinhTrang() == 1) {
+            if (dsHoaDon[i].getTinhTrangDon() == 1) {
                 tongDoanhThu += dsHoaDon[i].getTongTien();
                 soDonThanhToan++;
             }
@@ -130,4 +140,12 @@ class OrderList implements IQuanLy<Order> {
         }
         return danhSachThucTe;
     }
+    public void saveToFile() {
+    fileHandler.saveToFile(danhSachThucTe, "C:\\Users\\HELLO\\Downloads\\fileSave");
+}
+
+public void loadFromFile() {
+    danhSachThucTe = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
+    soLuongDonHang = danhSachThucTe.size();
+}
 }

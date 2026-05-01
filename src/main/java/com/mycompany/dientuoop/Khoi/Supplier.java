@@ -13,6 +13,46 @@ public class Supplier {
     private String tenNSX;
     private String quocGia;
     private String soDienThoai;
+
+    public String getMaNSX() {
+        return maNSX;
+    }
+
+    public void setMaNSX(String maNSX) {
+        this.maNSX = maNSX;
+    }
+
+    public String getTenNSX() {
+        return tenNSX;
+    }
+
+    public void setTenNSX(String tenNSX) {
+        this.tenNSX = tenNSX;
+    }
+
+    public String getQuocGia() {
+        return quocGia;
+    }
+
+    public void setQuocGia(String quocGia) {
+        this.quocGia = quocGia;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
     private String diaChi;
     private int tinhTrang;
 

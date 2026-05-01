@@ -11,6 +11,8 @@ import com.mycompany.dientuoop.Khoi.FileHandler;
  *
  * @author HELLO
  */
+
+////dependency FileHandler
 public class ProductList {
     // Attributes
     private Product[] listSP;
@@ -21,7 +23,7 @@ public class ProductList {
     public ProductList(int capacity) {
         listSP = new Product[capacity];
         soLuongSP = 0;
-        fileHandler = new FileHandler();
+        this.fileHandler = fileHandler;
     }
 
     // Methods

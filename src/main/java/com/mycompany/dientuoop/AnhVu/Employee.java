@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Employee Class
-class Employee {
+public class Employee {
     protected String maNV;
     protected String hoTen;
     protected double luongCoBan;

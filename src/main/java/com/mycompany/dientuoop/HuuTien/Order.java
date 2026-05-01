@@ -1,31 +1,41 @@
 package com.mycompany.dientuoop.HuuTien;
 
+import com.mycompany.dientuoop.Khoi.SalesStaff;
 import java.util.Scanner;
 import java.sql.Date;
 
 public class Order {
-        private String maHD;
+    private String maHD;
     private Date ngayLap;
     private double tongTien;
-    private int tinhTrang;
+    private int tinhTrangDon;
     private Customer khachHang;
-    //private Employee nhanVien;
+    private SalesStaff nhanVien;
+    private OrderDetail[] dsChiTiet;
+
+    public SalesStaff getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(SalesStaff nhanVien) {
+        this.nhanVien = nhanVien;
+    }
 
     //Mảng chứa chi tiết đơn hàng
-    private OrderDetail[] orderDetails;
-    private int soLuongChiTiet;
+    
+//    private int soLuongChiTiet;
 
     public Order() {
-        this.orderDetails = new OrderDetail[50]; // Khởi tạo mảng chi tiết đơn hàng với kích thước mặc định
-        this.soLuongChiTiet = 0;
+        this.dsChiTiet = new OrderDetail[50]; // Khởi tạo mảng chi tiết đơn hàng với kích thước mặc định
+//        this.soLuongChiTiet = 0;
     }
 
     public Order(String maHD, Date ngayLap, double tongTien, int tinhTrang) {
         this.maHD = maHD;
         this.ngayLap = ngayLap;
         this.tongTien = 0; // Giá trị mặc định cho tổng tiền
-        this.tinhTrang = tinhTrang;
-        this.orderDetails = new OrderDetail[50]; // Khởi tạo mảng chi tiết đơn hàng với kích thước mặc định
+        this.tinhTrangDon = tinhTrangDon;
+        this.dsChiTiet = new OrderDetail[50]; // Khởi tạo mảng chi tiết đơn hàng với kích thước mặc định
         this.soLuongChiTiet = 0;
     }
 
@@ -51,11 +61,11 @@ public class Order {
         this.tongTien = tongTien;
     }
 
-    public int getTinhTrang() {
-        return tinhTrang;
+    public int getTinhTrangDon() {
+        return tinhTrangDon;
     }
-    public void setTinhTrang(int tinhTrang) {
-        this.tinhTrang = tinhTrang;
+    public void setTinhTrangDon(int tinhTrangDon) {
+        this.tinhTrangDon = tinhTrangDon;
     }
 
     public Customer getKhachHang() {
@@ -68,14 +78,14 @@ public class Order {
     public double tinhTong() {
         double tong = 0;
         for(int i = 0; i < soLuongChiTiet; i++) {
-            tong += orderDetails[i].tinhThanhTien(); // Cộng dồn thành tiền của từng chi tiết đơn hàng
+            tong += dsChiTiet[i].tinhThanhTien(); // Cộng dồn thành tiền của từng chi tiết đơn hàng
         }
         return tong;
     }
 
     public void themChiTiet(OrderDetail chiTiet) {
-        if(soLuongChiTiet < orderDetails.length) {
-            orderDetails[soLuongChiTiet] = chiTiet; // Thêm chi tiết đơn hàng vào mảng
+        if(soLuongChiTiet < dsChiTiet.length) {
+            dsChiTiet[soLuongChiTiet] = chiTiet; // Thêm chi tiết đơn hàng vào mảng
             soLuongChiTiet++; // Tăng số lượng chi tiết đơn hàng
         } else {
             System.out.println("Không thể thêm chi tiết đơn hàng, đã đạt giới hạn.");
@@ -89,7 +99,7 @@ public class Order {
         System.out.print("Nhập ngày tạo (dd/MM/yyyy): ");
         this.ngayLap = Date.valueOf(sc.nextLine()); // Chuyển đổi chuỗi ngày thành đối tượng Date
         System.out.print("Nhập tình trạng đơn (1 - Đã thanh toán, 0 - Chưa thanh toán): ");
-        this.tinhTrang = Integer.parseInt(sc.nextLine());
+        this.tinhTrangDon = Integer.parseInt(sc.nextLine());
 
         System.out.print("Nhập số lượng mặt hàng muốn mua: ");
         int n = Integer.parseInt(sc.nextLine());
@@ -106,12 +116,12 @@ public class Order {
         System.out.println("Mã Hóa Đơn: " + maHD + " | Ngày tạo: " + ngayLap);
         String tenKhachHang = (khachHang != null) ? khachHang.getTenKH() : "Khách vãng lai";
         System.out.println("Khách hàng: " + tenKhachHang);
-        System.out.println("Tình trạng: " + (tinhTrang == 1 ? "Đã thanh toán" : "Chưa thanh toán"));
+        System.out.println("Tình trạng: " + (tinhTrangDon == 1 ? "Đã thanh toán" : "Chưa thanh toán"));
         System.out.println("---------------------------------------------");
         System.out.println("DANH SÁCH SẢN PHẨM MUA:");
         for (int i = 0; i < soLuongChiTiet; i++) {
             System.out.print((i + 1) + ". ");
-            orderDetails[i].xuat(); // Gọi phương thức xuất thông tin chi tiết đơn hàng
+            dsChiTiet[i].xuat(); // Gọi phương thức xuất thông tin chi tiết đơn hàng
         }
         System.out.println("---------------------------------------------");
         System.out.printf("TỔNG TIỀN HÓA ĐƠN: %.2f\n", tongTien);

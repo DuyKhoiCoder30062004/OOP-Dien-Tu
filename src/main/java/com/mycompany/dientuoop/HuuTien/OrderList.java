@@ -141,7 +141,7 @@ class OrderList implements IQuanLy<Order> {
         return danhSachThucTe;
     }
     public void saveToFile() {
-    fileHandler.saveToFile(danhSachThucTe, "C:\\Users\\HELLO\\Downloads\\fileSave");
+    fileHandler.saveToFile(dsHoaDon, "C:\\Users\\HELLO\\Downloads\\fileSave");
 }
 
 public void loadFromFile() {

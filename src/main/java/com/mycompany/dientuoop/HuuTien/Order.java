@@ -1,6 +1,6 @@
 package com.mycompany.dientuoop.HuuTien;
 
-import com.mycompany.dientuoop.Khoi.SalesStaff;
+import com.mycompany.dientuoop.AnhVu.SalesStaff;
 import java.util.Scanner;
 import java.sql.Date;
 

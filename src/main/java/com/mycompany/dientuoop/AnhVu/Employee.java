@@ -13,15 +13,15 @@ import java.util.List;
 
 // Employee Class
 public class Employee {
-    protected String maNV;
+    protected String maNv;
     protected String hoTen;
     protected double luongCoBan;
     protected int tinhTrang;
 
     public Employee() {}
 
-    public Employee(String maNV, String hoTen, double luongCoBan, int tinhTrang) {
-        this.maNV = maNV;
+    public Employee(String maNv, String hoTen, double luongCoBan, int tinhTrang) {
+        this.maNv = maNv;
         this.hoTen = hoTen;
         this.luongCoBan = luongCoBan;
         this.tinhTrang = tinhTrang;
@@ -39,8 +39,16 @@ public class Employee {
         this.tinhTrang = tinhTrang;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public String getMaNv() {
+        return maNv;
+    }
+
+    public double getLuongCoBan() {
+        return luongCoBan;
+    }
+
+    public void setLuongCoBan(double luongCoBan) {
+        this.luongCoBan = luongCoBan;
     }
 
     public String getHoTen() {

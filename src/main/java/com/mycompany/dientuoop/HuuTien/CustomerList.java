@@ -104,4 +104,6 @@ public class CustomerList implements IQuanLy<Customer> {
         System.arraycopy(customers, 0, result, 0, soluongKH); // Sao chép khách hàng vào mảng kết quả
         return result;
     }
+    //implement FileHandler dependency
+    
 }

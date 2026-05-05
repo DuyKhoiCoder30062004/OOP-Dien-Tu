@@ -20,6 +20,36 @@ public class ProductList implements IQuanLy<Product> {
     private int soLuongSP;
     private FileHandler fileHandler;
 
+    public ProductList(Product[] listSP, int soLuongSP, FileHandler fileHandler) {
+        this.listSP = listSP;
+        this.soLuongSP = soLuongSP;
+        this.fileHandler = fileHandler;
+    }
+
+    public Product[] getListSP() {
+        return listSP;
+    }
+
+    public void setListSP(Product[] listSP) {
+        this.listSP = listSP;
+    }
+
+    public int getSoLuongSP() {
+        return soLuongSP;
+    }
+
+    public void setSoLuongSP(int soLuongSP) {
+        this.soLuongSP = soLuongSP;
+    }
+
+    public FileHandler getFileHandler() {
+        return fileHandler;
+    }
+
+    public void setFileHandler(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
+    }
+
     public ProductList() {
     }
 
@@ -41,7 +71,7 @@ public class ProductList implements IQuanLy<Product> {
         }
     }
     @Override
-    public boolean xoa(String maSP) {
+    public void xoa(String maSP) {
         for (int i = 0; i < soLuongSP; i++) {
             if (listSP[i].getMaSP().equals(maSP)) {
                 // Shift elements left
@@ -50,13 +80,11 @@ public class ProductList implements IQuanLy<Product> {
                 }
                 listSP[soLuongSP - 1] = null;
                 soLuongSP--;
-                return true;
             }
         }
-        return false;
     }
-
-    public Product timkiem(String ten) {
+    @Override
+    public Product timKiem(String ten) {
         for (int i = 0; i < soLuongSP; i++) {
             if (listSP[i].getTenSP().equalsIgnoreCase(ten)) {
                 return listSP[i];
@@ -65,6 +93,7 @@ public class ProductList implements IQuanLy<Product> {
         return null;
     }
 
+    @Override
     public void sua(String maSP) {
         for (int i = 0; i < soLuongSP; i++) {
             if (listSP[i].getMaSP().equals(maSP)) {
@@ -73,11 +102,13 @@ public class ProductList implements IQuanLy<Product> {
             }
         }
     }
-
+    
+    @Override
     public void nhap() {
         // Implement input logic (e.g., from console or file)
     }
 
+    @Override
     public void xuat() {
         for (int i = 0; i < soLuongSP; i++) {
             System.out.println(listSP[i]);
@@ -94,11 +125,6 @@ public class ProductList implements IQuanLy<Product> {
 
     public void setSoLuong(int sl) {
         this.soLuongSP = sl;
-    }
-
-    @Override
-    public Product timKiem(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

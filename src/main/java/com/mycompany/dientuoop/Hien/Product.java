@@ -12,16 +12,16 @@ import com.mycompany.dientuoop.Khoi.Discountable;
  * @author HELLO
  */
 public abstract class Product implements Discountable {
-    private String maSP;
-    private String tenSP;
-    private double giaBan;
-    private int trangThai;
-    private Supplier nsx; // Relationship with Supplier
-    private Supplier nuocSanXuat;
-    private int namSanXuat;
-    private String imei;
-    private int soLuong;
-    private double phanTramGiam;
+    protected String maSP; 
+    protected String tenSP;
+    protected double giaBan;
+    protected int trangThai; 
+    protected Supplier nsx; // Relationship with Supplier
+    protected Supplier nuocSanXuat;
+    protected int namSanXuat;
+    protected String imei;
+    protected int soLuong;
+    protected double phanTramGiam;
 
     public Product() {
     }

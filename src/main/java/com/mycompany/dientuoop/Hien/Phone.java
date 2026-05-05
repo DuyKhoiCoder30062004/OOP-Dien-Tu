@@ -7,7 +7,18 @@ public class Phone extends Product {
     private String OS;
     private double kichthuocMan;
 
+    public Phone() {
+    }
+
+    public Phone(int pin, String OS, double kichthuocMan) {
+        this.pin = pin;
+        this.OS = OS;
+        this.kichthuocMan = kichthuocMan;
+    }
+
     // Constructor matching MainApp usage
+    //ở đây định nghĩa sẵn kế thừa, đúc khuôn
+    //có sẵn phiên bản của Phone có đầy đủ tham số và bản constructor khác để sử dụng
     public Phone(String maSP, String tenSP, double giaBan, String imei) {
         this.maSP = maSP;
         this.tenSP = tenSP;

@@ -13,12 +13,12 @@ import com.mycompany.dientuoop.Khoi.FileHandler;
 ////dependency FileHandler
 public class CustomerList implements IQuanLy<Customer> {
     private  Customer[] customers;
-        private int soluongKH;
+        private int soLuongKH;
         private FileHandler fileHandler;
 
-        public CustomerList() {
+        public CustomerList(FileHandler fileHandler) {
             this.customers = new Customer[100]; // Giả sử tối đa 100 khách hàng
-            this.soluongKH = 0;
+            this.soLuongKH = 0;
             this.fileHandler = fileHandler;
         }
 
@@ -38,11 +38,11 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public void xuat() {
-        if(soluongKH == 0) {
+        if(soLuongKH == 0) {
             System.out.println("Danh sách khách hàng trống.");
         } else {
             System.out.println("Danh sách khách hàng:");
-            for(int i = 0; i < soluongKH; i++) {
+            for(int i = 0; i < soLuongKH; i++) {
                 customers[i].xuat(); // Gọi phương thức xuất thông tin khách hàng
                 System.out.println("-----------------------");
             }
@@ -51,9 +51,9 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public void them(Customer kh) {
-        if(soluongKH <= customers.length) {
-            customers[soluongKH] = kh; // Thêm khách hàng vào mảng
-            soluongKH++; // Tăng số lượng khách hàng
+        if(soLuongKH <= customers.length) {
+            customers[soLuongKH] = kh; // Thêm khách hàng vào mảng
+            soLuongKH++; // Tăng số lượng khách hàng
         } else {
             System.out.println("Danh sách khách hàng đã đầy.");
         }
@@ -61,13 +61,13 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public void xoa(String id) {
-        for(int i =0; i < soluongKH; i++) {
+        for(int i =0; i < soLuongKH; i++) {
             if(customers[i].getMaKH().equals(id)) {
-                for(int j = i; j < soluongKH - 1; j++) {
+                for(int j = i; j < soLuongKH - 1; j++) {
                     customers[j] = customers[j + 1]; // Dịch chuyển các phần tử sau vị trí xóa lên trước
                 }
-                customers[soluongKH - 1] = null; // Xóa phần tử cuối cùng sau khi dịch chuyển
-                soluongKH--; // Giảm số lượng khách hàng
+                customers[soLuongKH - 1] = null; // Xóa phần tử cuối cùng sau khi dịch chuyển
+                soLuongKH--; // Giảm số lượng khách hàng
                 System.out.println("Đã xóa khách hàng có mã: " + id);
                 return;
             }
@@ -77,7 +77,7 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public void sua(String id) {
-        for(int i = 0; i < soluongKH; i++) {
+        for(int i = 0; i < soLuongKH; i++) {
             if(customers[i].getMaKH().equals(id)) {
                 System.out.println("Nhập thông tin mới cho khách hàng có mã: " + id);
                 customers[i].nhap(); // Gọi phương thức nhập thông tin khách hàng để cập nhật
@@ -90,7 +90,7 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public Customer timKiem(String maKH) {
-    for (int i = 0; i < soluongKH; i++) {
+    for (int i = 0; i < soLuongKH; i++) {
         if (customers[i].getMaKH().equalsIgnoreCase(maKH)) {
             return customers[i];
         }
@@ -100,10 +100,17 @@ public class CustomerList implements IQuanLy<Customer> {
 
     //Hàm getAll
     public Customer[] getAll() {
-        Customer[] result = new Customer[soluongKH];
-        System.arraycopy(customers, 0, result, 0, soluongKH); // Sao chép khách hàng vào mảng kết quả
+        Customer[] result = new Customer[soLuongKH];
+        System.arraycopy(customers, 0, result, 0, soLuongKH); // Sao chép khách hàng vào mảng kết quả
         return result;
     }
     //implement FileHandler dependency
-    
+    public void save(String fileName) {
+        fileHandler.saveToFile(customers, fileName);
+    }
+
+    public void load(String fileName) {
+        customers = fileHandler.readFromFile(fileName);
+        soLuongKH = customers.size();
+    }
 }

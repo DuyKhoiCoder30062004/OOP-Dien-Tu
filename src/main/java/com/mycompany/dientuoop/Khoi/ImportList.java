@@ -11,26 +11,26 @@ import java.util.ArrayList;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 public class ImportList implements IQuanLy<ImportReceipt> {
-    private List<ImportReceipt> danhSachPN;   // Aggregation: holds ImportReceipt objects
+    private List<ImportReceipt> dsPN;   // Aggregation: holds ImportReceipt objects
     private int soLuongPN;
     private FileHandler fileHandler;          // Dependency: uses FileHandler
 
     public ImportList(FileHandler fileHandler) {
-        this.danhSachPN = new ArrayList<>();
+        this.dsPN = new ArrayList<>();
         this.fileHandler = fileHandler;
         this.soLuongPN = 0;
     }
     
     @Override
     public void them(ImportReceipt obj) {
-        danhSachPN.add(obj);
+        dsPN.add(obj);
         soLuongPN++;
     }
     //nhap,xuat,them,sua,xoa,timkiem
     //thongKeTheoKhoangThoiGian, tinhTongVonNhapHang, timKiemTheoNhanVien
     @Override
     public ImportReceipt timKiem(String id) {
-        return danhSachPN.stream()
+        return dsPN.stream()
                 .filter(pn -> pn.getMaPN().equals(id))
                 .findFirst()
                 .orElse(null);
@@ -42,21 +42,21 @@ public class ImportList implements IQuanLy<ImportReceipt> {
     }
 
     public double tinhTongVonNhapHang() {
-        return danhSachPN.stream()
+        return dsPN.stream()
                 .mapToDouble(ImportReceipt::getTongTien)
                 .sum();
     }
 
     public ImportReceipt timKiemTheoNhanVien(String maNV) {
-        return danhSachPN.stream()
-                .filter(pn -> pn.getNv().getMaNV().equals(maNV))
+        return dsPN.stream()
+                .filter(pn -> pn.getNv().getMaNv().equals(maNV))
                 .findFirst()
                 .orElse(null);
     }
     @Override
     public void xoa(String id) {
-        danhSachPN.removeIf(pn -> pn.getMaPN().equals(id));
-        soLuongPN = danhSachPN.size();
+        dsPN.removeIf(pn -> pn.getMaPN().equals(id));
+        soLuongPN = dsPN.size();
     }
     @Override
     public void sua(String id) {
@@ -65,17 +65,17 @@ public class ImportList implements IQuanLy<ImportReceipt> {
     }
 
     public List<ImportReceipt> getAll() {
-        return danhSachPN;
+        return dsPN;
     }
     
     //Dependency with FileHandler
     public void saveToFile() {
-    fileHandler.saveToFile(danhSachPN, "C:\\Users\\HELLO\\Downloads\\fileSave");
+    fileHandler.saveToFile(dsPN, "C:\\Users\\HELLO\\Downloads\\fileSave");
 }
 
 public void loadFromFile() {
-    danhSachPN = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
-    soLuongPN = danhSachPN.size();
+    dsPN = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
+    soLuongPN = dsPN.size();
 }
 
     @Override

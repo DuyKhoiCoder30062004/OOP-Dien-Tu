@@ -7,7 +7,23 @@ package com.mycompany.dientuoop.Hien;
 import java.util.Scanner;
 
 public class Accessory {
+    
+        // Attributes
+    private String loaiKetnoi;
+    private String loaiPhukien;
+    private int thoiGianBaoHanh;
+    private String mauSac;
+     // Constructor
+    public Accessory(String loaiKetnoi, String loaiPhukien, int thoiGianBaoHanh, String mauSac) {
+        this.loaiKetnoi = loaiKetnoi;
+        this.loaiPhukien = loaiPhukien;
+        this.thoiGianBaoHanh = thoiGianBaoHanh;
+        this.mauSac = mauSac;
+    }
 
+    public Accessory() {
+    }
+    
     public String getLoaiKetnoi() {
         return loaiKetnoi;
     }
@@ -24,12 +40,12 @@ public class Accessory {
         this.loaiPhukien = loaiPhukien;
     }
 
-    public int getThoigianBaoHanh() {
-        return thoigianBaoHanh;
+    public int getThoiGianBaoHanh() {
+        return thoiGianBaoHanh;
     }
 
-    public void setThoigianBaoHanh(int thoigianBaoHanh) {
-        this.thoigianBaoHanh = thoigianBaoHanh;
+    public void setThoiGianBaoHanh(int thoiGianBaoHanh) {
+        this.thoiGianBaoHanh = thoiGianBaoHanh;
     }
 
     public String getMauSac() {
@@ -39,15 +55,7 @@ public class Accessory {
     public void setMauSac(String mauSac) {
         this.mauSac = mauSac;
     }
-    // Attributes
-    private String loaiKetnoi;
-    private String loaiPhukien;
-    private int thoigianBaoHanh;
-    private String mauSac;
-
-    // Constructor
-    public Accessory() {
-    }
+   
 
     // Methods
     public void nhap() {
@@ -60,7 +68,7 @@ public class Accessory {
         loaiPhukien = sc.nextLine();
 
         System.out.print("Nhập thời gian bảo hành (tháng): ");
-        thoigianBaoHanh = sc.nextInt();
+        thoiGianBaoHanh = sc.nextInt();
         sc.nextLine(); // consume newline
 
         System.out.print("Nhập màu sắc: ");
@@ -71,13 +79,13 @@ public class Accessory {
         System.out.println("Phụ kiện:");
         System.out.println("  Loại kết nối: " + loaiKetnoi);
         System.out.println("  Loại phụ kiện: " + loaiPhukien);
-        System.out.println("  Thời gian bảo hành: " + thoigianBaoHanh + " tháng");
+        System.out.println("  Thời gian bảo hành: " + thoiGianBaoHanh + " tháng");
         System.out.println("  Màu sắc: " + mauSac);
     }
 
-    public boolean kiemtraBaoHanh() {
+    public boolean kiemTraBaoHanh() {
         // Ví dụ: còn bảo hành nếu thời gian > 0
-        return thoigianBaoHanh > 0;
+        return thoiGianBaoHanh > 0;
     }
 }
 

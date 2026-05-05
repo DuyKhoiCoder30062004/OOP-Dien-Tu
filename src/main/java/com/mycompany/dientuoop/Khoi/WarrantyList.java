@@ -14,7 +14,7 @@ import java.util.List;
  * @author HELLO
  */
 public class WarrantyList implements IQuanLy<Warranty> {
-    private List<Warranty> danhSachBH;
+    private List<Warranty> dsBH;
     private int soLuongBH;
     private FileHandler fileHandler;
     
@@ -25,7 +25,7 @@ public class WarrantyList implements IQuanLy<Warranty> {
 
     public void xuatDanhSachDangSua() { 
         System.out.println("=== Danh sách bảo hành đang sửa ===");
-        for (Warranty w : danhSachBH) {
+        for (Warranty w : dsBH) {
             if (w.getTrangThaiBH() == 1) { // giả sử 1 = đang sửa
                 w.xuat();
             }
@@ -52,9 +52,16 @@ public class WarrantyList implements IQuanLy<Warranty> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     public List<Warranty> getAll() {
-        return danhSachBH;
+        return dsBH;
     }
-    
+    public void save(String fileName) {
+        fileHandler.saveToFile(dsBH, fileName);
+    }
+
+    public void load(String fileName) {
+        dsBH = fileHandler.readFromFile(fileName);
+        soLuongBH = dsBH.size();
+    }
 }
 //timKiem, xoa, sua, them, 
 ////dependency FileHandler

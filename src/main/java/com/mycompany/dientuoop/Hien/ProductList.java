@@ -126,5 +126,13 @@ public class ProductList implements IQuanLy<Product> {
     public void setSoLuong(int sl) {
         this.soLuongSP = sl;
     }
+    public void save(String fileName) {
+        fileHandler.saveToFile(listSP, fileName);
+    }
+
+    public void load(String fileName) {
+        listSP = fileHandler.readFromFile(fileName);
+        soLuongSP = listSP.size();
+    }
 }
 

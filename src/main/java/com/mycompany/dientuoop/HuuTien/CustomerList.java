@@ -14,7 +14,7 @@ import com.mycompany.dientuoop.Khoi.FileHandler;
 public class CustomerList implements IQuanLy<Customer> {
     private  Customer[] customers;
         private int soluongKH;
-        protected FileHandler fileHandler;
+        private FileHandler fileHandler;
 
         public CustomerList() {
             this.customers = new Customer[100]; // Giả sử tối đa 100 khách hàng

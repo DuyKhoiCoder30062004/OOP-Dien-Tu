@@ -13,67 +13,11 @@ public class Order {
     private SalesStaff nhanVien;
     private OrderDetail[] dsChiTiet;
 
-    public SalesStaff getNhanVien() {
-        return nhanVien;
-    }
 
-    public void setNhanVien(SalesStaff nhanVien) {
-        this.nhanVien = nhanVien;
-    }
 
-    //Mảng chứa chi tiết đơn hàng
+
     
-//    private int soLuongChiTiet;
-
-    public Order() {
-        this.dsChiTiet = new OrderDetail[50]; // Khởi tạo mảng chi tiết đơn hàng với kích thước mặc định
-//        this.soLuongChiTiet = 0;
-    }
-
-    public Order(String maHD, Date ngayLap, double tongTien, int tinhTrang) {
-        this.maHD = maHD;
-        this.ngayLap = ngayLap;
-        this.tongTien = 0; // Giá trị mặc định cho tổng tiền
-        this.tinhTrangDon = tinhTrangDon;
-        this.dsChiTiet = new OrderDetail[50]; // Khởi tạo mảng chi tiết đơn hàng với kích thước mặc định
-        this.soLuongChiTiet = 0;
-    }
-
-    // Getter và Setter
-    public String getMaHD() {
-        return maHD;
-    }
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
-    }
-
-    public Date getNgayLap() {
-        return ngayLap;
-    }
-    public void setNgayLap(Date ngayLap) {
-        this.ngayLap = ngayLap;
-    }
-
-    public double getTongTien() {
-        return tongTien;
-    }
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
-    }
-
-    public int getTinhTrangDon() {
-        return tinhTrangDon;
-    }
-    public void setTinhTrangDon(int tinhTrangDon) {
-        this.tinhTrangDon = tinhTrangDon;
-    }
-
-    public Customer getKhachHang() {
-        return khachHang;
-    }
-    public void setKhachHang(Customer khachHang) {
-        this.khachHang = khachHang;
-    }
+    //tinh tong, addDetail, inHoaDon, Order() Constructor, getter&setter
 
     public double tinhTong() {
         double tong = 0;
@@ -92,39 +36,39 @@ public class Order {
         }
     }
 
-    public void nhap() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhập mã hóa đơn: ");
-        this.maHD = sc.nextLine();
-        System.out.print("Nhập ngày tạo (dd/MM/yyyy): ");
-        this.ngayLap = Date.valueOf(sc.nextLine()); // Chuyển đổi chuỗi ngày thành đối tượng Date
-        System.out.print("Nhập tình trạng đơn (1 - Đã thanh toán, 0 - Chưa thanh toán): ");
-        this.tinhTrangDon = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Nhập số lượng mặt hàng muốn mua: ");
-        int n = Integer.parseInt(sc.nextLine());
-        for (int i = 0; i < n; i++) {
-            System.out.println("--- Chi tiết mặt hàng thứ " + (i + 1) + " ---");
-            OrderDetail detail = new OrderDetail();
-            detail.nhap();
-            themChiTiet(detail);
-        }
-    }
-
-    public void xuat() {
-        System.out.println("\n=============================================");
-        System.out.println("Mã Hóa Đơn: " + maHD + " | Ngày tạo: " + ngayLap);
-        String tenKhachHang = (khachHang != null) ? khachHang.getTenKH() : "Khách vãng lai";
-        System.out.println("Khách hàng: " + tenKhachHang);
-        System.out.println("Tình trạng: " + (tinhTrangDon == 1 ? "Đã thanh toán" : "Chưa thanh toán"));
-        System.out.println("---------------------------------------------");
-        System.out.println("DANH SÁCH SẢN PHẨM MUA:");
-        for (int i = 0; i < soLuongChiTiet; i++) {
-            System.out.print((i + 1) + ". ");
-            dsChiTiet[i].xuat(); // Gọi phương thức xuất thông tin chi tiết đơn hàng
-        }
-        System.out.println("---------------------------------------------");
-        System.out.printf("TỔNG TIỀN HÓA ĐƠN: %.2f\n", tongTien);
-        System.out.println("=============================================\n");
-    }
+//    public void nhap() {
+//        Scanner sc = new Scanner(System.in);
+//        System.out.print("Nhập mã hóa đơn: ");
+//        this.maHD = sc.nextLine();
+//        System.out.print("Nhập ngày tạo (dd/MM/yyyy): ");
+//        this.ngayLap = Date.valueOf(sc.nextLine()); // Chuyển đổi chuỗi ngày thành đối tượng Date
+//        System.out.print("Nhập tình trạng đơn (1 - Đã thanh toán, 0 - Chưa thanh toán): ");
+//        this.tinhTrangDon = Integer.parseInt(sc.nextLine());
+//
+//        System.out.print("Nhập số lượng mặt hàng muốn mua: ");
+//        int n = Integer.parseInt(sc.nextLine());
+//        for (int i = 0; i < n; i++) {
+//            System.out.println("--- Chi tiết mặt hàng thứ " + (i + 1) + " ---");
+//            OrderDetail detail = new OrderDetail();
+//            detail.nhap();
+//            themChiTiet(detail);
+//        }
+//    }
+//
+//    public void xuat() {
+//        System.out.println("\n=============================================");
+//        System.out.println("Mã Hóa Đơn: " + maHD + " | Ngày tạo: " + ngayLap);
+//        String tenKhachHang = (khachHang != null) ? khachHang.getTenKH() : "Khách vãng lai";
+//        System.out.println("Khách hàng: " + tenKhachHang);
+//        System.out.println("Tình trạng: " + (tinhTrangDon == 1 ? "Đã thanh toán" : "Chưa thanh toán"));
+//        System.out.println("---------------------------------------------");
+//        System.out.println("DANH SÁCH SẢN PHẨM MUA:");
+//        for (int i = 0; i < soLuongChiTiet; i++) {
+//            System.out.print((i + 1) + ". ");
+//            dsChiTiet[i].xuat(); // Gọi phương thức xuất thông tin chi tiết đơn hàng
+//        }
+//        System.out.println("---------------------------------------------");
+//        System.out.printf("TỔNG TIỀN HÓA ĐƠN: %.2f\n", tongTien);
+//        System.out.println("=============================================\n");
+//    }
 }

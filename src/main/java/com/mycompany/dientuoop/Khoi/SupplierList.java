@@ -2,10 +2,13 @@
 package com.mycompany.dientuoop.Khoi;
 import java.util.List;
 import java.util.ArrayList;
-public class SupplierList {
+public class SupplierList implements IQuanLy<Supplier>{
     private List<Supplier> danhSachNSX;   // Aggregation: holds Supplier objects
     private int soLuongNSX;
     private FileHandler fileHandler;      // Dependency: uses FileHandler
+
+    public SupplierList() {
+    }
 
     public SupplierList(FileHandler fileHandler) {
         this.danhSachNSX = new ArrayList<>();
@@ -61,5 +64,15 @@ public void loadFromFile() {
     danhSachNSX = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
     soLuongNSX = danhSachNSX.size();
 }
+
+    @Override
+    public void nhap() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void xuat() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 

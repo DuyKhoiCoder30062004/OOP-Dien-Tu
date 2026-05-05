@@ -31,43 +31,91 @@ import com.mycompany.dientuoop.Hien.Laptop;
 import com.mycompany.dientuoop.Hien.Phone;
 import com.mycompany.dientuoop.Hien.Product;
 import com.mycompany.dientuoop.Hien.ProductList;
-
+import com.mycompany.dientuoop.HuuTien.OrderList;
+import com.mycompany.dientuoop.AnhVu.EmployeeList;
+import com.mycompany.dientuoop.HuuTien.CustomerList;
+import java.util.Scanner;
 public class MainApp {
+    // Managers
+    private ProductList productManager;
+    private OrderList orderManager;
+    private EmployeeList employeeManager;
+    private CustomerList customerManager;
+    private WarrantyList warrantyManager;
+
+    // Constructor
+    public MainApp() {
+        this.productManager = new ProductList();
+        this.orderManager = new OrderList();
+        this.employeeManager = new EmployeeList();
+        this.customerManager = new CustomerList();
+        this.warrantyManager = new WarrantyList();
+    }
+
+    // Menus
+    public void mainMenu() {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("=== Main Menu ===");
+            System.out.println("1. Product Menu");
+            System.out.println("2. Order Menu");
+            System.out.println("3. Employee Menu");
+            System.out.println("4. Customer Menu");
+            System.out.println("5. Warranty Menu");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    productMenu();
+                    break;
+                case 2:
+                    orderMenu();
+                    break;
+                case 3:
+                    employeeMenu();
+                    break;
+                case 4:
+                    customerMenu();
+                    break;
+                case 5:
+                    warrantyMenu();
+                    break;
+                case 0:
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        } while (choice != 0);
+        sc.close();
+    }
+
+    public void productMenu() {
+        System.out.println("=== Product Menu ===");
+        // Add product-related options and logic here
+    }
+
+    public void orderMenu() {
+        System.out.println("=== Order Menu ===");
+        // Add order-related options and logic here
+    }
+
+    public void employeeMenu() {
+        System.out.println("=== Employee Menu ===");
+        // Add employee-related options and logic here
+    }
+
+    public void customerMenu() {
+        
+        // Add customer-related options and logic here
+    }
+
+    // Main method to run the application
     public static void main(String[] args) {
-        // Create some sample products (using a concrete subclass of Product)
-        Phone p1 = new Phone("SP01", "iPhone 15", 1000, "123456789");
-        Laptop p2 = new Laptop("SP02", "Dell XPS", 1500, "Intel i7");
-
-        // Create ProductList with capacity 5
-        ProductList productList = new ProductList(5);
-
-        // Test adding products
-        productList.them(p1);
-        productList.them(p2);
-
-        // Test displaying all products
-        System.out.println("Danh sách sản phẩm:");
-        productList.xuat();
-
-        // Test searching
-        //ReGex - Regular Expression
-        Product found = productList.timkiem("iPhone 15");
-        System.out.println("Kết quả tìm kiếm: " + (found != null ? found : "Không tìm thấy"));
-
-        // Test removing
-        boolean removed = productList.xoa("SP01");
-        System.out.println("Xóa SP01: " + (removed ? "Thành công" : "Thất bại"));
-
-        // Show list after removal
-        System.out.println("Danh sách sau khi xóa:");
-        productList.xuat();
-
-        // Test discount
-        double discountedPrice = p2.applyDiscount(p2.getGiaBan());
-        System.out.println("Giá sau giảm của Dell XPS: " + discountedPrice);
-
-        // Test hienThiChiTiet (polymorphism)
-        System.out.println("Chi tiết sản phẩm:");
-        p2.hienThiChiTiet();
+        MainApp app = new MainApp();
+        app.mainMenu();
     }
 }
+

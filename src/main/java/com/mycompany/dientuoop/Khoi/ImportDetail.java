@@ -19,6 +19,15 @@ public class ImportDetail {
     //ip dua vao` 1 class bat ky, no' dua tham so' vao trong method do' luon => Composition
 //    private ImportReceipt ip;
 
+    public ImportDetail(Product maSP, int soLuong, double donGiaNhap) {
+        this.maSP = maSP;
+        this.soLuong = soLuong;
+        this.donGiaNhap = donGiaNhap;
+    }
+
+    public ImportDetail() {
+    }
+    
     public double thanhTien() {
         return soLuong * donGiaNhap;
     }

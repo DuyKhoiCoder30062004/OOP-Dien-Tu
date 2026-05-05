@@ -1,19 +1,5 @@
 package com.mycompany.dientuoop.AnhVu;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-//import com.mycompany.dientuoop.;
-//package com.mycompany.dientuoop.Khoi;
-/**
- *
- * @author HELLO
- */
-//import java.util.ArrayList;
-
-//import java.util.ArrayList;
-
 import java.util.ArrayList;
 
 import com.mycompany.dientuoop.Khoi.ImportDetail;
@@ -23,6 +9,18 @@ public class ImportReceipt {
     private String maNSX;
     private Employee nv; // Employee Name/ID
     private String ngayNhap;
+
+    public ImportReceipt() {
+    }
+//da co getter setter 
+    public ImportReceipt(String maPN, String maNSX, Employee nv, String ngayNhap, double tongTien, ArrayList<ImportDetail> dsChiTiet) {
+        this.maPN = maPN;
+        this.maNSX = maNSX;
+        this.nv = nv;
+        this.ngayNhap = ngayNhap;
+        this.tongTien = tongTien;
+        this.dsChiTiet = dsChiTiet;
+    }
 
     public String getMaPN() {
         return maPN;

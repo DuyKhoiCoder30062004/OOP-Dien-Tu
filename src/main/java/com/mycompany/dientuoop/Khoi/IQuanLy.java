@@ -10,6 +10,7 @@ package com.mycompany.dientuoop.Khoi;
  */
 public interface IQuanLy<T> {
     //giong abstract
+    
     public void nhap();
     public void xuat();
     public void them(T obj);

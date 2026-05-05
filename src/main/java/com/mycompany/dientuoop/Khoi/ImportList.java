@@ -4,43 +4,13 @@
 // */
 //package com.mycompany.dientuoop.Khoi;
 //
-//import com.mycompany.dientuoop.Khoi.FileHandler;
-//import com.mycompany.dientuoop.Khoi.IQuanLy;
-//
-///**
-// *
-// * @author HELLO
-// */
-//public class ImportList implements IQuanLy {
-//    private ImportReceipt[] danhSachPN;
-//    private int soLuongPN;
-//    private FileHandler fileHandler;
-//
-////    @Override
-////    public void them() { /* Implementation */ }
-////    @Override
-////    public void xoa() { /* Implementation */ }
-////    @Override
-////    public void sua() { /* Implementation */ }
-////    @Override
-////    public void timKiem() { /* Implementation */ }
-//    
-//    public void timKiemTheoKhoangThoiGian(String tuNgay, String denNgay) { /* Implementation */ }
-//    public double tinhTongVonNhapHang() { return 0.0; }
-//
-//    @Override
-//    public void nhap() { /* Implementation */ }
-//    @Override
-//    public void xuat() { /* Implementation */ }
-//}
-////dependency FileHandler
-///
-///
+
 import com.mycompany.dientuoop.AnhVu.ImportReceipt;
 import java.util.List;
 import java.util.ArrayList;
 import com.mycompany.dientuoop.Khoi.FileHandler;
-public class ImportList {
+import com.mycompany.dientuoop.Khoi.IQuanLy;
+public class ImportList implements IQuanLy<ImportReceipt> {
     private List<ImportReceipt> danhSachPN;   // Aggregation: holds ImportReceipt objects
     private int soLuongPN;
     private FileHandler fileHandler;          // Dependency: uses FileHandler
@@ -50,12 +20,15 @@ public class ImportList {
         this.fileHandler = fileHandler;
         this.soLuongPN = 0;
     }
-
+    
+    @Override
     public void them(ImportReceipt obj) {
         danhSachPN.add(obj);
         soLuongPN++;
     }
-
+    //nhap,xuat,them,sua,xoa,timkiem
+    //thongKeTheoKhoangThoiGian, tinhTongVonNhapHang, timKiemTheoNhanVien
+    @Override
     public ImportReceipt timKiem(String id) {
         return danhSachPN.stream()
                 .filter(pn -> pn.getMaPN().equals(id))
@@ -80,12 +53,12 @@ public class ImportList {
                 .findFirst()
                 .orElse(null);
     }
-
+    @Override
     public void xoa(String id) {
         danhSachPN.removeIf(pn -> pn.getMaPN().equals(id));
         soLuongPN = danhSachPN.size();
     }
-
+    @Override
     public void sua(String id) {
         System.out.println("Editing ImportReceipt with id: " + id);
         // Logic to update receipt info
@@ -94,15 +67,8 @@ public class ImportList {
     public List<ImportReceipt> getAll() {
         return danhSachPN;
     }
-
-//    public void save(String fileName) {
-//        fileHandler.saveToFile(danhSachPN, fileName);
-//    }
-//
-//    public void loadFromFile(String fileName) {
-//        danhSachPN = fileHandler.readFromFile(fileName);
-//        soLuongPN = danhSachPN.size();
-//    }
+    
+    //Dependency with FileHandler
     public void saveToFile() {
     fileHandler.saveToFile(danhSachPN, "C:\\Users\\HELLO\\Downloads\\fileSave");
 }
@@ -111,5 +77,15 @@ public void loadFromFile() {
     danhSachPN = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
     soLuongPN = danhSachPN.size();
 }
+
+    @Override
+    public void nhap() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void xuat() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 

@@ -8,6 +8,7 @@ package com.mycompany.dientuoop.AnhVu;
  *
  * @author HELLO
  */
+import com.mycompany.dientuoop.Khoi.IQuanLy;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Scanner;
 //dependency FileHandler
 
 // EmployeeList Class
-class EmployeeList {
+public class EmployeeList implements IQuanLy<Employee>{
     private List<Employee> dsNhanVien;
     private int soLuongNV;
 
@@ -68,6 +69,16 @@ class EmployeeList {
 
     public List<Employee> getAll() {
         return dsNhanVien;
+    }
+
+    @Override
+    public void nhap() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void xuat() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

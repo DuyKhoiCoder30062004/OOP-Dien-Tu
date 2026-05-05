@@ -4,33 +4,57 @@
 // */
 //package com.mycompany.dientuoop.Khoi;
 //
-//import com.mycompany.dientuoop.Khoi.Warranty;
-//import com.mycompany.dientuoop.Khoi.FileHandler;
-//import com.mycompany.dientuoop.Khoi.IQuanLy;
-//
-///**
-// *
-// * @author HELLO
-// */
-//public class WarrantyList implements IQuanLy {
-//    private Warranty[] danhSachBH;
-//    private int soLuongBH;
-//    private FileHandler fileHandler;
-//
-//    @Override
-//    public void them() { /* Implementation */ }
-//    @Override
-//    public void sua() { /* Implementation */ }
-//    @Override
-//    public void xoa() { /* Implementation */ }
-//    @Override
-//    public void timKiem() { /* Implementation */ }
-//    @Override
-//    public void nhap() { /* Implementation */ }
-//    @Override
-//    public void xuat() { /* Implementation */ }
-//
-//    public void xuatDanhSachDangSua() { /* Implementation */ }
-//}
+import com.mycompany.dientuoop.Khoi.Warranty;
+import com.mycompany.dientuoop.Khoi.FileHandler;
+import com.mycompany.dientuoop.Khoi.IQuanLy;
+import java.util.List;
 
+/**
+ *
+ * @author HELLO
+ */
+public class WarrantyList implements IQuanLy<Warranty> {
+    private List<Warranty> danhSachBH;
+    private int soLuongBH;
+    private FileHandler fileHandler;
+    
+    @Override
+    public void nhap() {  }
+    @Override
+    public void xuat() { }
+
+    public void xuatDanhSachDangSua() { 
+        System.out.println("=== Danh sách bảo hành đang sửa ===");
+        for (Warranty w : danhSachBH) {
+            if (w.getTrangThaiBH() == 1) { // giả sử 1 = đang sửa
+                w.xuat();
+            }
+        }
+    }
+
+    @Override
+    public void them(Warranty obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void sua(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void xoa(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Warranty timKiem(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    public List<Warranty> getAll() {
+        return danhSachBH;
+    }
+    
+}
+//timKiem, xoa, sua, them, 
 ////dependency FileHandler

@@ -6,6 +6,7 @@ package com.mycompany.dientuoop.Hien;
 
 import com.mycompany.dientuoop.Hien.Product;
 import com.mycompany.dientuoop.Khoi.FileHandler;
+import com.mycompany.dientuoop.Khoi.IQuanLy;
 
 /**
  *
@@ -13,11 +14,14 @@ import com.mycompany.dientuoop.Khoi.FileHandler;
  */
 
 ////dependency FileHandler
-public class ProductList {
+public class ProductList implements IQuanLy<Product> {
     // Attributes
     private Product[] listSP;
     private int soLuongSP;
     private FileHandler fileHandler;
+
+    public ProductList() {
+    }
 
     // Constructor with fixed capacity
     public ProductList(int capacity) {
@@ -27,6 +31,7 @@ public class ProductList {
     }
 
     // Methods
+    @Override
     public void them(Product p) {
         if (soLuongSP < listSP.length) {
             listSP[soLuongSP] = p;
@@ -35,7 +40,7 @@ public class ProductList {
             System.out.println("Danh sách sản phẩm đã đầy!");
         }
     }
-
+    @Override
     public boolean xoa(String maSP) {
         for (int i = 0; i < soLuongSP; i++) {
             if (listSP[i].getMaSP().equals(maSP)) {
@@ -89,6 +94,11 @@ public class ProductList {
 
     public void setSoLuong(int sl) {
         this.soLuongSP = sl;
+    }
+
+    @Override
+    public Product timKiem(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

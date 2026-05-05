@@ -13,11 +13,14 @@ import com.mycompany.dientuoop.Khoi.IQuanLy;
  */
 //dependency FileHandler
 
-class OrderList implements IQuanLy<Order> {
+public class OrderList implements IQuanLy<Order> {
     // Khai báo mảng chứa các hóa đơn và số lượng hiện tại
     private Order[] dsHoaDon;
     private int soLuongHD;
      private FileHandler fileHandler; // Tạm chờ lớp FileHandler
+
+    public OrderList() {
+    }
 
     public OrderList(FileHandler fileHandler) {
         // Khởi tạo mảng tĩnh chứa tối đa 100 hóa đơn

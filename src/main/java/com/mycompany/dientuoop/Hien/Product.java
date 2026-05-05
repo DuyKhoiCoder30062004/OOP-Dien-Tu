@@ -12,16 +12,32 @@ import com.mycompany.dientuoop.Khoi.Discountable;
  * @author HELLO
  */
 public abstract class Product implements Discountable {
-    protected String maSP;
-    protected String tenSP;
-    protected double giaBan;
-    protected int trangThai;
-    protected Supplier nsx; // Relationship with Supplier
-    protected String nuocSanXuat;
-    protected int namSanXuat;
-    protected String imei;
-    protected int soLuong;
-    protected double phanTramGiam;
+    private String maSP;
+    private String tenSP;
+    private double giaBan;
+    private int trangThai;
+    private Supplier nsx; // Relationship with Supplier
+    private Supplier nuocSanXuat;
+    private int namSanXuat;
+    private String imei;
+    private int soLuong;
+    private double phanTramGiam;
+
+    public Product() {
+    }
+
+    public Product(String maSP, String tenSP, double giaBan, int trangThai, Supplier nsx, Supplier nuocSanXuat, int namSanXuat, String imei, int soLuong, double phanTramGiam) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.giaBan = giaBan;
+        this.trangThai = trangThai;
+        this.nsx = nsx;
+        this.nuocSanXuat = nuocSanXuat;
+        this.namSanXuat = namSanXuat;
+        this.imei = imei;
+        this.soLuong = soLuong;
+        this.phanTramGiam = phanTramGiam;
+    }
 
     public abstract void hienThiChiTiet();
 
@@ -75,11 +91,11 @@ public void setNsx(Supplier nsx) {
     this.nsx = nsx;
 }
 
-public String getNuocSanXuat() {
+public Supplier getNuocSanXuat() {
     return nuocSanXuat;
 }
 
-public void setNuocSanXuat(String nuocSanXuat) {
+public void setNuocSanXuat(Supplier nuocSanXuat) {
     this.nuocSanXuat = nuocSanXuat;
 }
 

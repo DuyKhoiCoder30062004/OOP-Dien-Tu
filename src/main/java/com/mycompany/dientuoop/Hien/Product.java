@@ -1,17 +1,19 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.dientuoop.Hien;
-
-import com.mycompany.dientuoop.Khoi.Supplier;
 import com.mycompany.dientuoop.Khoi.Discountable;
+import com.mycompany.dientuoop.Khoi.Supplier;
+
 
 /**
  *
  * @author HELLO
  */
-public abstract class Product implements Discountable {
+
+
+public class Product implements Discountable {
     protected String maSP; 
     protected String tenSP;
     protected double giaBan;
@@ -39,7 +41,7 @@ public abstract class Product implements Discountable {
         this.phanTramGiam = phanTramGiam;
     }
 
-    public abstract void hienThiChiTiet();
+    public void hienThiChiTiet(){};
 
     @Override
     public double applyDiscount(double amount) {
@@ -50,10 +52,10 @@ public abstract class Product implements Discountable {
         System.out.println("ID: " + maSP + ", Name: " + tenSP + ", Price: " + giaBan);
     }
 
-    @Override
-    public String toString() {
-        return maSP + " - " + tenSP;
-    }
+//    @Override
+//    public String toString() {
+//        return maSP + " - " + tenSP;
+//    }
 
     // Getters and Setters
     public int getTrangThai() { return trangThai; }
@@ -130,5 +132,7 @@ public double getPhanTramGiam() {
 public void setPhanTramGiam(double phanTramGiam) {
     this.phanTramGiam = phanTramGiam;
 }
-
+public void nhap(){
+    
+}
 }

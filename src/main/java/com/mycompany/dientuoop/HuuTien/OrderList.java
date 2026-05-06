@@ -2,15 +2,18 @@ package com.mycompany.dientuoop.HuuTien;
 import java.util.*;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
+import com.mycompany.dientuoop.Khoi.Utils;
 public class OrderList implements IQuanLy<Order> {
-    private Order[] dsHoaDon;
+    private List<Order> dsHoaDon;
     private int soLuongHD;
     private FileHandler fileHandler;
-
+    private Utils utils;
     public OrderList(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
     }
-
+    public OrderList(Utils utils){
+        this.utils = utils;
+    }
    
 
 //    public void setDsHoaDon(List<Order> dsHoaDon) {
@@ -34,7 +37,7 @@ public class OrderList implements IQuanLy<Order> {
 //    }
 
     public OrderList(int soLuongHD, FileHandler fileHandler) {
-        this.soLuongHD = soLuongHD;
+//        this.soLuongHD = soLuongHD;
         this.fileHandler = fileHandler;
     }
 
@@ -50,16 +53,19 @@ public class OrderList implements IQuanLy<Order> {
     }
     @Override
     public Order timKiem(String maDonHang) {
+        dsHoaDon = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
         for (Order o : dsHoaDon) {
             if (o.getMaHD().equals(maDonHang)) {
                 return o;
             }
         }
-        return null;
+        return null;  
     }
     @Override
     public void them(Order o) {
-        
+        dsHoaDon.add(o);
+        fileHandler.saveToFile(dsHoaDon, "C:\\Users\\HELLO\\Downloads\\hoadon.txt"); // lưu ngay sau khi thêm
+
     }
     
     
@@ -77,8 +83,8 @@ public class OrderList implements IQuanLy<Order> {
 
     @Override
     public void xoa(String maDonHang) {
-        dsHoaDon.removeIf(o -> o.getMaHD().equals(maDonHang));
-        soLuongHD = dsHoaDon.size();
+//        dsHoaDon.removeIf(o -> o.getMaHD().equals(maDonHang));
+//        soLuongHD = dsHoaDon.size();
     }
 
     @Override
@@ -88,12 +94,12 @@ public class OrderList implements IQuanLy<Order> {
 
     @Override
     public void xuat() {
-        for (Order o : dsHoaDon) {
-            o.inHoaDon();
-        }
+//        for (Order o : dsHoaDon) {
+//            o.inHoaDon();
+//        }
     }
 
-    public Order[] getAll() {
+    public List<Order> getAll() {
         return dsHoaDon;
     }
 
@@ -103,7 +109,20 @@ public class OrderList implements IQuanLy<Order> {
     }
 
     public void load(String fileName) {
-        dsHoaDon = fileHandler.readFromFile(fileName);
+        List<Order> temp = fileHandler.readFromFile(fileName);
+        dsHoaDon = temp;
         soLuongHD = dsHoaDon.size();
+             
+    }
+
+    @Override
+    public void sua(String id) {
+         for (Order o : dsHoaDon ) {
+            if (o.getMaHD().equals(id)) {
+                o.nhap(); // cho phép nhập lại thông tin
+                fileHandler.saveToFile(dsHoaDon, "C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+            }
+        }
+        System.out.println("Không tìm thấy hóa đơn với mã: " + id);     
     }
 }

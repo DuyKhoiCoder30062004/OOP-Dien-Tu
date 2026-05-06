@@ -22,6 +22,7 @@ public class Accessory {
     }
 
     public Accessory() {
+        super();
     }
     
     public String getLoaiKetnoi() {

@@ -6,20 +6,25 @@ package com.mycompany.dientuoop.HuuTien;
 import java.util.Scanner;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 import com.mycompany.dientuoop.Khoi.FileHandler;
+import com.mycompany.dientuoop.Khoi.Utils;
+import java.util.Arrays;
+import java.util.List;
 /**
  *`/
  * @author HELLO
  */
 ////dependency FileHandler
 public class CustomerList implements IQuanLy<Customer> {
-    private  Customer[] customers;
+    private  List<Customer> customers;
         private int soLuongKH;
         private FileHandler fileHandler;
+        private Utils utils;
 
         public CustomerList(FileHandler fileHandler) {
-            this.customers = new Customer[100]; // Giả sử tối đa 100 khách hàng
-            this.soLuongKH = 0;
             this.fileHandler = fileHandler;
+        }
+        public CustomerList(Utils utils){
+            this.utils = utils;
         }
 
     @Override
@@ -38,64 +43,57 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public void xuat() {
-        if(soLuongKH == 0) {
-            System.out.println("Danh sách khách hàng trống.");
-        } else {
-            System.out.println("Danh sách khách hàng:");
-            for(int i = 0; i < soLuongKH; i++) {
-                customers[i].xuat(); // Gọi phương thức xuất thông tin khách hàng
-                System.out.println("-----------------------");
-            }
-        }
+        
     }
 
     @Override
     public void them(Customer kh) {
-        if(soLuongKH <= customers.length) {
-            customers[soLuongKH] = kh; // Thêm khách hàng vào mảng
-            soLuongKH++; // Tăng số lượng khách hàng
-        } else {
-            System.out.println("Danh sách khách hàng đã đầy.");
-        }
+//        if(soLuongKH <= customers.length) {
+//            customers[soLuongKH] = kh; // Thêm khách hàng vào mảng
+//            soLuongKH++; // Tăng số lượng khách hàng
+//        } else {
+//            System.out.println("Danh sách khách hàng đã đầy.");
+//        }
+            customers.add(kh);
+        fileHandler.saveToFile(customers, "C:\\Users\\HELLO\\Downloads\\khachhang.txt"); // lưu ngay sau khi thêm
+
     }
 
     @Override
     public void xoa(String id) {
-        for(int i =0; i < soLuongKH; i++) {
-            if(customers[i].getMaKH().equals(id)) {
-                for(int j = i; j < soLuongKH - 1; j++) {
-                    customers[j] = customers[j + 1]; // Dịch chuyển các phần tử sau vị trí xóa lên trước
-                }
-                customers[soLuongKH - 1] = null; // Xóa phần tử cuối cùng sau khi dịch chuyển
-                soLuongKH--; // Giảm số lượng khách hàng
-                System.out.println("Đã xóa khách hàng có mã: " + id);
-                return;
-            }
-        }
-        System.out.println("Không tìm thấy khách hàng có mã: " + id);
+        customers.removeIf(l -> l.getMaKH().equals(id));
+        fileHandler.saveToFile(customers, "C:\\Users\\HELLO\\Downloads\\khachhang.txt"); // lưu ngay sau khi thêm
     }
 
     @Override
     public void sua(String id) {
-        for(int i = 0; i < soLuongKH; i++) {
-            if(customers[i].getMaKH().equals(id)) {
-                System.out.println("Nhập thông tin mới cho khách hàng có mã: " + id);
-                customers[i].nhap(); // Gọi phương thức nhập thông tin khách hàng để cập nhật
-                System.out.println("Đã cập nhật thông tin khách hàng có mã: " + id);
-                return;
+//        for(int i = 0; i < soLuongKH; i++) {
+//            if(customers[i].getMaKH().equals(id)) {
+//                System.out.println("Nhập thông tin mới cho khách hàng có mã: " + id);
+//                customers[i].nhap(); // Gọi phương thức nhập thông tin khách hàng để cập nhật
+//                System.out.println("Đã cập nhật thông tin khách hàng có mã: " + id);
+//                return;
+//            }
+//        }
+//        System.out.println("Không tìm thấy khách hàng có mã: " + id);
+        for (Customer c : customers ) {
+            if (c.getMaKH().equals(id)) {
+                c.nhap(); // cho phép nhập lại thông tin
+                fileHandler.saveToFile(customers, "C:\\Users\\HELLO\\Downloads\\khachhang.txt");
             }
         }
-        System.out.println("Không tìm thấy khách hàng có mã: " + id);
+        System.out.println("Không tìm thấy khách hàng với mã: " + id);
     }
 
     @Override
-    public Customer timKiem(String maKH) {
-    for (int i = 0; i < soLuongKH; i++) {
-        if (customers[i].getMaKH().equalsIgnoreCase(maKH)) {
-            return customers[i];
+    public Customer timKiem(String tenKH) {
+    customers = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\khachhang.txt");
+        for (Customer c : customers) {
+            if (c.getTenKH().equals(tenKH)) {
+                return c;
+            }
         }
-    }
-    return null; // Trả về null nếu không tìm thấy khách hàng
+        return null;
     }
 
     //Hàm getAll
@@ -110,7 +108,10 @@ public class CustomerList implements IQuanLy<Customer> {
     }
 
     public void load(String fileName) {
-        customers = fileHandler.readFromFile(fileName);
+         List<Customer> temp = fileHandler.readFromFile(fileName);
+        customers = temp; 
         soLuongKH = customers.size();
+//        listSP = temp.toArray(new Product[0]);
+//    soLuongSP = listSP.length;
     }
 }

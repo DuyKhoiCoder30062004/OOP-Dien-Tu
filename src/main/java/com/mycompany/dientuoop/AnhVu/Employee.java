@@ -54,6 +54,9 @@ public class Employee {
     public String getHoTen() {
         return hoTen;
     }
+    public void nhap(){
+        
+    }
 }
 
 

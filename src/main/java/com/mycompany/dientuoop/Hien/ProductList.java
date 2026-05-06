@@ -7,6 +7,8 @@ package com.mycompany.dientuoop.Hien;
 import com.mycompany.dientuoop.Hien.Product;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -14,23 +16,26 @@ import com.mycompany.dientuoop.Khoi.IQuanLy;
  */
 
 ////dependency FileHandler
-public class ProductList implements IQuanLy<Product> {
+public class ProductList {
     // Attributes
-    private Product[] listSP;
+    private List<Product> listSP;
     private int soLuongSP;
     private FileHandler fileHandler;
 
-    public ProductList(Product[] listSP, int soLuongSP, FileHandler fileHandler) {
+    public ProductList(FileHandler fileHandler){
+        this.fileHandler = fileHandler;
+    }
+    public ProductList(List<Product> listSP, int soLuongSP, FileHandler fileHandler) {
         this.listSP = listSP;
         this.soLuongSP = soLuongSP;
         this.fileHandler = fileHandler;
     }
 
-    public Product[] getListSP() {
+    public List<Product> getListSP() {
         return listSP;
     }
 
-    public void setListSP(Product[] listSP) {
+    public void setListSP(List<Product> listSP) {
         this.listSP = listSP;
     }
 
@@ -53,71 +58,44 @@ public class ProductList implements IQuanLy<Product> {
     public ProductList() {
     }
 
-    // Constructor with fixed capacity
-    public ProductList(int capacity) {
-        listSP = new Product[capacity];
-        soLuongSP = 0;
-        this.fileHandler = fileHandler;
-    }
-
     // Methods
-    @Override
     public void them(Product p) {
-        if (soLuongSP < listSP.length) {
-            listSP[soLuongSP] = p;
-            soLuongSP++;
-        } else {
-            System.out.println("Danh sách sản phẩm đã đầy!");
-        }
+        listSP.add(p);
+        fileHandler.saveToFile(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt"); // lưu ngay sau khi thêm
     }
-    @Override
     public void xoa(String maSP) {
-        for (int i = 0; i < soLuongSP; i++) {
-            if (listSP[i].getMaSP().equals(maSP)) {
-                // Shift elements left
-                for (int j = i; j < soLuongSP - 1; j++) {
-                    listSP[j] = listSP[j + 1];
-                }
-                listSP[soLuongSP - 1] = null;
-                soLuongSP--;
-            }
-        }
+        listSP.removeIf(l -> l.getMaSP().equals(maSP));
+        fileHandler.saveToFile(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt"); // lưu ngay sau khi thêm
     }
-    @Override
     public Product timKiem(String ten) {
-        for (int i = 0; i < soLuongSP; i++) {
-            if (listSP[i].getTenSP().equalsIgnoreCase(ten)) {
-                return listSP[i];
+        listSP = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\sanpham.txt");
+        for (Product p : listSP) {
+            if (p.getTenSP().equals(ten)) {
+                return p;
             }
         }
         return null;
     }
+        public void nhap() {
+            Product p = new Product();
+            p.nhap();
+        }
 
-    @Override
-    public void sua(String maSP) {
-        for (int i = 0; i < soLuongSP; i++) {
-            if (listSP[i].getMaSP().equals(maSP)) {
-                // Implement edit logic here
-                break;
+        
+        public void xuat() {
+            
+        }
+
+        public void sua(String id) {
+            for (Product pl : listSP ) {
+            if (pl.getMaSP().equals(id)) {
+                pl.nhap(); // cho phép nhập lại thông tin
+                fileHandler.saveToFile(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt");
             }
         }
-    }
-    
-    @Override
-    public void nhap() {
-        // Implement input logic (e.g., from console or file)
-    }
-
-    @Override
-    public void xuat() {
-        for (int i = 0; i < soLuongSP; i++) {
-            System.out.println(listSP[i]);
+        System.out.println("Không tìm thấy Sản phẩm với mã: " + id);       
         }
-    }
 
-    public Product[] getAll() {
-        return listSP;
-    }
 
     public int getSoLuong() {
         return soLuongSP;
@@ -131,8 +109,10 @@ public class ProductList implements IQuanLy<Product> {
     }
 
     public void load(String fileName) {
-        listSP = fileHandler.readFromFile(fileName);
+        List<Product> temp = fileHandler.readFromFile(fileName);
+        listSP = temp; 
         soLuongSP = listSP.size();
     }
+    
 }
 

@@ -65,7 +65,7 @@ public class Supplier {
         this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
         this.tinhTrang = tinhTrang;
-    }
+    } 
 
     // Getters and Setters
     public int getTinhTrang() { return tinhTrang; }

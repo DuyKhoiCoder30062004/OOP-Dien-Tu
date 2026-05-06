@@ -10,6 +10,7 @@ package com.mycompany.dientuoop.AnhVu;
  */
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
+import com.mycompany.dientuoop.Khoi.Utils;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -23,16 +24,19 @@ public class EmployeeList implements IQuanLy<Employee>{
     private List<Employee> dsNhanVien;
     private int soLuongNV;
     private FileHandler fileHandler; 
+    private Utils utils;
     public EmployeeList(FileHandler fileHandler) {
         dsNhanVien = new ArrayList<>();
         this.fileHandler = fileHandler;
         soLuongNV = 0;
     }
-    
+    public EmployeeList(Utils utils){
+        this.utils = utils;
+    }
     @Override
-    public Employee timKiem(String ma) {
+    public Employee timKiem(String maNv) {
         for (Employee e : dsNhanVien) {
-            if (e.getMaNv().equals(ma)) {
+            if (e.getMaNv().equals(maNv)) {
                 return e;
             }
         }
@@ -50,27 +54,24 @@ public class EmployeeList implements IQuanLy<Employee>{
     @Override
     public void them(Employee e) {
         dsNhanVien.add(e);
-        soLuongNV++;
+        fileHandler.saveToFile(dsNhanVien, "C:\\Users\\HELLO\\Downloads\\nhanvien.txt"); // lưu ngay sau khi thêm
     }
 
     @Override
     public void sua(String maNV) {
-        Employee e = timKiem(maNV);
-        if (e != null) {
-            // Example: update status
-            e.setTinhTrang(1);
-            System.out.println("Updated employee: " + e.getHoTen());
+        for (Employee nv : dsNhanVien ) {
+            if (nv.getMaNv().equals(maNV)) {
+                nv.nhap(); // cho phép nhập lại thông tin
+                fileHandler.saveToFile(dsNhanVien, "C:\\Users\\HELLO\\Downloads\\nhanvien.txt");
+            }
         }
+        System.out.println("Không tìm thấy Nhân viên với mã: " + maNV); 
     }
 
     @Override
     public void xoa(String maNV) {
-        Employee e = timKiem(maNV);
-        if (e != null) {
-            dsNhanVien.remove(e);
-            soLuongNV--;
-            System.out.println("Removed employee: " + e.getHoTen());
-        }
+        dsNhanVien.removeIf(l -> l.getMaNv().equals(maNV));
+        fileHandler.saveToFile(dsNhanVien, "C:\\Users\\HELLO\\Downloads\\nhanvien.txt"); // lưu ngay sau khi thêm
     }
 
     public List<Employee> getAll() {

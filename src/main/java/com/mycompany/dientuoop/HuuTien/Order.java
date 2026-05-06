@@ -61,4 +61,7 @@ public class Order {
     public void setTinhTrang(int tinhTrang) {
         this.tinhTrangDon = tinhTrang;
     }
+    public void nhap(){
+        
+    }
 }

@@ -13,6 +13,25 @@ public class SalesStaff extends Employee {
     private double doanhSo;
     private double tiLeHoaHong;
 
+//    constructor:
+    
+//    <acces modifier> tên class
+            
+    //kế thừa: SalesStaff - Employee
+    //bắt đầu từ constructor SalesStaff trước:
+    //bắt đầu giống vừa nãy ô làm, dàn bộ khung trc
+    public SalesStaff(double doanhSo, double tiLeHoaHong){ 
+        super();
+        this.doanhSo = doanhSo;
+        this.tiLeHoaHong = tiLeHoaHong;
+    }
+            
+    
+    
+    
+    
+    
+    
     public SalesStaff(String maNv, String hoTen, double luongCoBan, int tinhTrang,
                       double doanhSo, double tiLeHoaHong) {
 //        this.maNV = maNv;
@@ -28,10 +47,6 @@ public class SalesStaff extends Employee {
 
     public void setMaNv(String maNv) {
         this.maNv = maNv;
-    }
-    public SalesStaff(double doanhSo, double tiLeHoaHong) {
-        this.doanhSo = doanhSo;
-        this.tiLeHoaHong = tiLeHoaHong;
     }
 
     public SalesStaff() {

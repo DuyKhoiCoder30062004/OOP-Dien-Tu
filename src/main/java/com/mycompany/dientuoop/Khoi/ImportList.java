@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
+import java.io.IOException;
 public class ImportList implements IQuanLy<ImportReceipt> {
     private List<ImportReceipt> dsPN;   // Aggregation: holds ImportReceipt objects
     private int soLuongPN;
@@ -73,8 +74,8 @@ public class ImportList implements IQuanLy<ImportReceipt> {
     fileHandler.saveToFile(dsPN, "C:\\Users\\HELLO\\Downloads\\fileSave");
 }
 
-public void loadFromFile() {
-    dsPN = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
+public void loadFromFile() throws IOException {
+    dsPN = (List<ImportReceipt>) fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
     soLuongPN = dsPN.size();
 }
 

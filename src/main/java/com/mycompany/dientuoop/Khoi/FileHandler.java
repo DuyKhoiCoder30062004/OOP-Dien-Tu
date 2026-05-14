@@ -11,27 +11,53 @@ public class FileHandler<T> {
     }
 
     // Save supplier list to file
-    public void saveToFile(List<Supplier> data, String fileName) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(fileName))) {
-            oos.writeObject(data);
-            System.out.println("Suppliers saved to " + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveToFile(List<T> data, String fileName) {
+    try (BufferedWriter writer = new BufferedWriter(
+           new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8"))) {
+        for (T item : data) {
+            writer.write(item.toString()); // toString có thể chứa tiếng Việt
+            writer.newLine();
         }
+        System.out.println("Thông tin được lưu vào file " + fileName);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
-
+}
+    public void saveToFileEdit(List<T> data, String fileName) {
+    try (BufferedWriter writer = new BufferedWriter(
+           new OutputStreamWriter(new FileOutputStream(fileName, false), "UTF-8"))) {
+        for (T item : data) {
+            writer.write(item.toString()); // toString có thể chứa tiếng Việt
+            writer.newLine();
+        }
+        System.out.println("Thông tin được lưu vào file " + fileName);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+    public void saveToFileDelete(List<T> data, String fileName) {
+    try (BufferedWriter writer = new BufferedWriter(
+           new OutputStreamWriter(new FileOutputStream(fileName, false), "UTF-8"))) {
+        for (T item : data) {
+            writer.write(item.toString()); // toString có thể chứa tiếng Việt
+            writer.newLine();
+        }
+        System.out.println("Thông tin được lưu vào file " + fileName);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
     // Read supplier list from file
     @SuppressWarnings("unchecked")
-    public List<Supplier> readFromFile(String fileName) {
-        List<Supplier> suppliers = new ArrayList<>();
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(fileName))) {
-            suppliers = (List<Supplier>) ois.readObject();
-            System.out.println("Suppliers loaded from " + fileName);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return suppliers;
+ public T readFromFile(String fileName) throws IOException{
+   try (BufferedReader reader = new BufferedReader(
+        new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
+    String line;
+    while ((line = reader.readLine()) != null) {
+        System.out.println("Đang tải Dữ liệu lên hệ thống");
+        System.out.println(line);
+    }
+}
+        return null;
     }
 }

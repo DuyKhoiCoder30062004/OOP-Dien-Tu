@@ -4,7 +4,9 @@
  */
 package com.mycompany.dientuoop.Hien;
 import com.mycompany.dientuoop.Khoi.Discountable;
+import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.Supplier;
+import java.util.Scanner;
 
 
 /**
@@ -24,10 +26,14 @@ public class Product implements Discountable {
     protected String imei;
     protected int soLuong;
     protected double phanTramGiam;
+    private FileHandler fileHandler;
 
+    
     public Product() {
     }
-
+    public Product(FileHandler fileHandler){
+        this.fileHandler = fileHandler;
+    }
     public Product(String maSP, String tenSP, double giaBan, int trangThai, Supplier nsx, Supplier nuocSanXuat, int namSanXuat, String imei, int soLuong, double phanTramGiam) {
         this.maSP = maSP;
         this.tenSP = tenSP;
@@ -133,6 +139,45 @@ public void setPhanTramGiam(double phanTramGiam) {
     this.phanTramGiam = phanTramGiam;
 }
 public void nhap(){
-    
+    //do cái nhap này là để lưu các properties vào constructor trước
+    //  lưu vào file luôn, rồi mới có filled data để cho vô list
+    //rồi từ list mới lưu vào file
+ // cần làm giống bên Customer của Tiến   
+ 
+ //maSP,tenSP,giaBan, trangThai,namSanXuat,imei,soLuong, phanTramGiam
+ Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập mã sản phẩm: ");
+        this.maSP = sc.nextLine();
+        System.out.println("Nhập tên sản phẩm: ");
+        this.tenSP = sc.nextLine();
+        System.out.println("Nhập giá bán sản phẩm: ");
+        this.giaBan = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Nhập trạng thái sản phẩm(0:hết hàng, 1: còn bán): ");
+        this.trangThai = Integer.parseInt(sc.nextLine());
+        if(trangThai < 0 || trangThai >1){
+            System.out.println("Nhập lại trạng thái sản phẩm(0:hết hàng, 1: còn bán): ");
+            System.exit(0);
+        }
+        System.out.println("Nhập năm sản xuất: ");
+        this.namSanXuat = Integer.parseInt(sc.nextLine());
+        //Mã IMEI cho phép nhập bừa, chưa có căn cấu trúc
+        System.out.println("Nhập mã IMEI: ");
+        this.imei = sc.nextLine();
+        System.out.println("Nhập số lượng: ");
+        this.soLuong = Integer.parseInt(sc.nextLine());
+        System.out.println("Nhập phần trăm giảm giá: ");
+        this.phanTramGiam = sc.nextDouble();
+        //
 }
+public void xuat() {
+        System.out.printf("Mã SP: %s | Tên SP: %s | Giá bán SP: %f | Trạng thái SP: %d | Năm sản xuất: %d | Mã IMEI: %s | Số lượng: %d | Phần trăm giảm: %f\n", 
+                maSP, tenSP, giaBan, trangThai, namSanXuat,imei,soLuong, phanTramGiam);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s|%s|%.2f|%d|%d|%s|%d|%.2f",
+        maSP, tenSP, giaBan, trangThai, namSanXuat, imei, soLuong, phanTramGiam);
+    }
 }

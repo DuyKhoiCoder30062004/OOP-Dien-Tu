@@ -7,6 +7,7 @@ package com.mycompany.dientuoop.Khoi;
 import com.mycompany.dientuoop.Khoi.Warranty;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -64,7 +65,11 @@ public class WarrantyList implements IQuanLy<Warranty> {
 
     @Override
     public Warranty timKiem(String id) {
-        dsBH = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\baohiem.txt");
+        try {
+            dsBH = (List<Warranty>) fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\baohiem.txt");
+        } catch (IOException ex) {
+            System.getLogger(WarrantyList.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
         for (Warranty w : dsBH) {
             if (w.getMaBH().equals(id)) {
                 return w;
@@ -79,8 +84,9 @@ public class WarrantyList implements IQuanLy<Warranty> {
         fileHandler.saveToFile(dsBH, fileName);
     }
 
-    public void load(String fileName) {
-        dsBH = fileHandler.readFromFile(fileName);
+    public void load(String fileName) throws IOException {
+        
+        dsBH = (List<Warranty>) fileHandler.readFromFile(fileName);
         soLuongBH = dsBH.size();
     }
 }

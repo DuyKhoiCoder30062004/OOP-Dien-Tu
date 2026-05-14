@@ -11,6 +11,7 @@ package com.mycompany.dientuoop.AnhVu;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 import com.mycompany.dientuoop.Khoi.Utils;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -92,8 +93,8 @@ public class EmployeeList implements IQuanLy<Employee>{
         fileHandler.saveToFile(dsNhanVien, fileName);
     }
 
-    public void load(String fileName) {
-        dsNhanVien = fileHandler.readFromFile(fileName);
+    public void load(String fileName) throws IOException {
+        dsNhanVien = (List<Employee>) fileHandler.readFromFile(fileName);
         soLuongNV = dsNhanVien.size();
     }
 }

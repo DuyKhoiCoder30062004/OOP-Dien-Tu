@@ -7,6 +7,11 @@ package com.mycompany.dientuoop.Hien;
 import com.mycompany.dientuoop.Hien.Product;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,6 +29,7 @@ public class ProductList {
 
     public ProductList(FileHandler fileHandler){
         this.fileHandler = fileHandler;
+         this.listSP = new ArrayList<>();
     }
     public ProductList(List<Product> listSP, int soLuongSP, FileHandler fileHandler) {
         this.listSP = listSP;
@@ -60,17 +66,23 @@ public class ProductList {
 
     // Methods
     public void them(Product p) {
-        listSP.add(p);
+        listSP.add(p); // (add instance p đã có sẵn các properties và methods truyền vào
         fileHandler.saveToFile(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt"); // lưu ngay sau khi thêm
+    //Nên làm thêm #2: thuật toán thêm 1 cách manually (như trong 1000 bt thầy Khang đưa)
     }
     public void xoa(String maSP) {
-        listSP.removeIf(l -> l.getMaSP().equals(maSP));
-        fileHandler.saveToFile(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt"); // lưu ngay sau khi thêm
+        boolean removed = listSP.removeIf(l -> l.getMaSP().equals(maSP));
+        if(removed){
+        fileHandler.saveToFileDelete(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt");
+        System.out.println("Đã xóa sản phẩm có mã: " + maSP);// lưu ngay sau khi thêm
+    }else{
+            System.out.println("Không tìm thấy sản phẩm với mã: " + maSP);
+        }
     }
-    public Product timKiem(String ten) {
-        listSP = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\sanpham.txt");
+    public Product timKiem(String ten) throws IOException {
+//        listSP = (List<Product>) fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\sanpham.txt");
         for (Product p : listSP) {
-            if (p.getTenSP().equals(ten)) {
+            if (p.getTenSP().equalsIgnoreCase(ten)) {
                 return p;
             }
         }
@@ -87,14 +99,20 @@ public class ProductList {
         }
 
         public void sua(String id) {
-            for (Product pl : listSP ) {
-            if (pl.getMaSP().equals(id)) {
-                pl.nhap(); // cho phép nhập lại thông tin
-                fileHandler.saveToFile(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt");
-            }
+    boolean found = false;
+    for (Product pl : listSP) {
+        if (pl.getMaSP().equals(id)) {
+            System.out.println("Nhập lại thông tin cho sản phẩm có mã: " + id);
+            pl.nhap(); // cho phép nhập lại thông tin
+            fileHandler.saveToFileEdit(listSP, "C:\\Users\\HELLO\\Downloads\\sanpham.txt");
+            found = true;
+            break;
         }
-        System.out.println("Không tìm thấy Sản phẩm với mã: " + id);       
-        }
+    }
+    if (!found) {
+        System.out.println("Không tìm thấy Sản phẩm với mã: " + id);
+    }
+}
 
 
     public int getSoLuong() {
@@ -108,11 +126,42 @@ public class ProductList {
         fileHandler.saveToFile(listSP, fileName);
     }
 
-    public void load(String fileName) {
-        List<Product> temp = fileHandler.readFromFile(fileName);
-        listSP = temp; 
-        soLuongSP = listSP.size();
+//    public void load(String fileName) throws IOException {
+//        listSP = (List<Product>) fileHandler.readFromFile(fileName); 
+//        soLuongSP = listSP.size();
+//    }
+    public void load(String fileName) throws IOException {
+    listSP = new ArrayList<>();
+
+    
+    // Call your existing readFromFile (prints lines, returns null)
+    fileHandler.readFromFile(fileName);
+
+    // After printing, re-open the file to actually parse into Product objects
+    try (BufferedReader reader = new BufferedReader(
+            new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            if (parts.length == 8) {
+                Product p = new Product();
+                p.setMaSP(parts[0].trim());
+                p.setTenSP(parts[1].trim());
+                p.setGiaBan(Double.parseDouble(parts[2].trim()));
+                p.setTrangThai(Integer.parseInt(parts[3].trim()));
+                p.setNamSanXuat(Integer.parseInt(parts[4].trim()));
+                p.setImei(parts[5].trim());
+                p.setSoLuong(Integer.parseInt(parts[6].trim()));
+                p.setPhanTramGiam(Double.parseDouble(parts[7].trim()));
+                listSP.add(p);
+            }
+        }
     }
+
+    soLuongSP = listSP.size();
+    System.out.println("Đã tải " + soLuongSP + " sản phẩm từ file " + fileName);
+}
+
     
 }
 

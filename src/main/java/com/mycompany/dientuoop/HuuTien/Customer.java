@@ -2,6 +2,7 @@ package com.mycompany.dientuoop.HuuTien;
 
 import java.util.Scanner;
 import com.mycompany.dientuoop.Khoi.Discountable;
+import com.mycompany.dientuoop.Khoi.FileHandler;
 import java.io.Serializable;
 
 public class Customer implements Discountable, Serializable {
@@ -10,11 +11,14 @@ public class Customer implements Discountable, Serializable {
     private String loaiKH;
     private int tinhTrang;
     private int diemTichLuy;
-
+    private FileHandler fileHandler;
     // Constructor mặc định
     public Customer() {
     }
-
+    
+    public Customer(FileHandler fileHandler){
+        this.fileHandler = fileHandler;
+    }
     public Customer(String maKH, String tenKH, String loaiKH) {
         this.maKH = maKH;
         this.tenKH = tenKH;

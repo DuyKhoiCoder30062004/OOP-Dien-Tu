@@ -3,11 +3,19 @@ import java.util.*;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 import com.mycompany.dientuoop.Khoi.Utils;
+import java.io.IOException;
 public class OrderList implements IQuanLy<Order> {
     private List<Order> dsHoaDon;
     private int soLuongHD;
     private FileHandler fileHandler;
     private Utils utils;
+    /*
+    private FileHandler fileHandler;
+
+    public ProductList(FileHandler fileHandler){
+        this.fileHandler = fileHandler;
+    }
+    */
     public OrderList(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
     }
@@ -53,7 +61,11 @@ public class OrderList implements IQuanLy<Order> {
     }
     @Override
     public Order timKiem(String maDonHang) {
-        dsHoaDon = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+        try {
+            dsHoaDon = (List<Order>) fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+        } catch (IOException ex) {
+            System.getLogger(OrderList.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
         for (Order o : dsHoaDon) {
             if (o.getMaHD().equals(maDonHang)) {
                 return o;
@@ -108,9 +120,9 @@ public class OrderList implements IQuanLy<Order> {
         fileHandler.saveToFile(dsHoaDon, fileName);
     }
 
-    public void load(String fileName) {
-        List<Order> temp = fileHandler.readFromFile(fileName);
-        dsHoaDon = temp;
+    public void load(String fileName) throws IOException {
+        dsHoaDon = (List<Order>) fileHandler.readFromFile(fileName);
+//        dsHoaDon = temp;
         soLuongHD = dsHoaDon.size();
              
     }

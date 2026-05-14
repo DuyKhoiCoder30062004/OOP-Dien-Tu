@@ -8,6 +8,7 @@ package com.mycompany.dientuoop.AnhVu;
  *
  * @author HELLO
  */
+import com.mycompany.dientuoop.Khoi.FileHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,13 @@ public class Employee {
     protected String hoTen;
     protected double luongCoBan;
     protected int tinhTrang;
+    private FileHandler fileHandler;
 
     public Employee() {}
 
+    public Employee(FileHandler fileHandler){
+        this.fileHandler = fileHandler;
+    }
     public Employee(String maNv, String hoTen, double luongCoBan, int tinhTrang) {
         this.maNv = maNv;
         this.hoTen = hoTen;

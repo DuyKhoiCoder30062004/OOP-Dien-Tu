@@ -1,5 +1,6 @@
 
 package com.mycompany.dientuoop.Khoi;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 public class SupplierList implements IQuanLy<Supplier>{
@@ -60,8 +61,8 @@ public class SupplierList implements IQuanLy<Supplier>{
     fileHandler.saveToFile(danhSachNSX, "C:\\Users\\HELLO\\Downloads\\fileSave");
 }
 
-public void loadFromFile() {
-    danhSachNSX = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
+public void loadFromFile() throws IOException {
+    danhSachNSX = (List<Supplier>) fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\fileSave");
     soLuongNSX = danhSachNSX.size();
 }
 

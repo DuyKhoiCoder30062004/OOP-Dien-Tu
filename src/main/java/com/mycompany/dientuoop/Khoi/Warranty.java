@@ -19,7 +19,24 @@ public class Warranty {
     private String ngayKetThuc;
     private String ngayNhan;
     private String moTaLoi;
+    private FileHandler fileHandler;
+    
+     public Warranty() {}
 
+     public Warranty(FileHandler fileHandler){
+         this.fileHandler = fileHandler;
+     }
+    public Warranty(String maBH, String maHD, Product maSPham, String ngayBatDau, String ngayKetThuc, String ngayNhan, String moTaLoi, int trangThaiBH) {
+        this.maBH = maBH;
+        this.maHD = maHD;
+        this.maSPham = maSPham;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.ngayNhan = ngayNhan;
+        this.moTaLoi = moTaLoi;
+        this.trangThaiBH = trangThaiBH;
+    }
+     
     public String getMaBH() {
         return maBH;
     }
@@ -85,7 +102,7 @@ public class Warranty {
     }
     private int trangThaiBH;
 
-    public Warranty() {}
+   
 
     public void nhap() { /* Implementation */ }
     public void xuat() { /* Implementation */ }

@@ -1,6 +1,7 @@
 package com.mycompany.dientuoop.HuuTien;
 import com.mycompany.dientuoop.HuuTien.Customer;
 import com.mycompany.dientuoop.AnhVu.SalesStaff;
+import com.mycompany.dientuoop.Khoi.FileHandler;
 import java.util.*;
 public class Order {
     private String MaHD;
@@ -10,6 +11,11 @@ public class Order {
     private List<OrderDetail> dsChiTiet = new ArrayList<>();
     private Customer khachHang;
     private SalesStaff nhanVien;
+    private FileHandler fileHandler;
+    
+    public Order(FileHandler fileHandler){
+        this.fileHandler = fileHandler;
+    }
 
     public Order(String MaHD, Date ngayLap, double tongTien, int tinhTrangDon, Customer khachHang, SalesStaff nhanVien) {
         this.MaHD = MaHD;

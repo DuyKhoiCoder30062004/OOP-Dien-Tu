@@ -7,6 +7,7 @@ import java.util.Scanner;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.Utils;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 /**
@@ -87,7 +88,11 @@ public class CustomerList implements IQuanLy<Customer> {
 
     @Override
     public Customer timKiem(String tenKH) {
-    customers = fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\khachhang.txt");
+        try {
+            customers = (List<Customer>) fileHandler.readFromFile("C:\\Users\\HELLO\\Downloads\\khachhang.txt");
+        } catch (IOException ex) {
+            System.getLogger(CustomerList.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
         for (Customer c : customers) {
             if (c.getTenKH().equals(tenKH)) {
                 return c;
@@ -107,9 +112,9 @@ public class CustomerList implements IQuanLy<Customer> {
         fileHandler.saveToFile(customers, fileName);
     }
 
-    public void load(String fileName) {
-         List<Customer> temp = fileHandler.readFromFile(fileName);
-        customers = temp; 
+    public void load(String fileName) throws IOException {
+        ////dsBH list, soLuong dsBH.size()
+         customers = (List<Customer>) fileHandler.readFromFile(fileName);
         soLuongKH = customers.size();
 //        listSP = temp.toArray(new Product[0]);
 //    soLuongSP = listSP.length;

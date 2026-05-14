@@ -2,7 +2,10 @@ package com.mycompany.dientuoop.HuuTien;
 import com.mycompany.dientuoop.HuuTien.Customer;
 import com.mycompany.dientuoop.AnhVu.SalesStaff;
 import com.mycompany.dientuoop.Khoi.FileHandler;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Scanner;
 public class Order {
     private String MaHD;
     private Date ngayLap;
@@ -67,7 +70,54 @@ public class Order {
     public void setTinhTrang(int tinhTrang) {
         this.tinhTrangDon = tinhTrang;
     }
-    public void nhap(){
-        
+    public void nhap() throws ParseException{
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập mã đơn hàng: ");
+        this.MaHD = sc.nextLine();
+        String input = sc.nextLine();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Nhập ngày lập: ");
+        Date ngayLap = sdf.parse(input);
+        System.out.println("Nhập tổng tiền đơn hàng: ");
+        this.tongTien = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Nhập trạng thái Đơn hàng(0:còn tồn, 1: đã chuyển): ");
+        this.tinhTrangDon = Integer.parseInt(sc.nextLine());
+        if(tinhTrangDon < 0 || tinhTrangDon >1){
+            System.out.println("Nhập lại trạng thái đơn hàng(0:còn tồn, 1: đã chuyển): ");
+            System.exit(0);
+        }
     }
+
+    public Date getNgayLap() {
+        return ngayLap;
+    }
+
+    public void setNgayLap(Date ngayLap) {
+        this.ngayLap = ngayLap;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public int getTinhTrangDon() {
+        return tinhTrangDon;
+    }
+
+    public void setTinhTrangDon(int tinhTrangDon) {
+        this.tinhTrangDon = tinhTrangDon;
+    }
+
+    // MaHD, ngayLap, tongTien, tinhTrangDon
+    // //String,Date,double,int
+    @Override
+    public String toString() {
+        return "Order{" + "MaHD=" + MaHD + ", ngayLap=" + ngayLap + ", tongTien=" + tongTien + ", tinhTrangDon=" + tinhTrangDon + ", dsChiTiet=" + dsChiTiet + ", khachHang=" + khachHang + ", nhanVien=" + nhanVien + ", fileHandler=" + fileHandler + '}';
+    }
+    
 }

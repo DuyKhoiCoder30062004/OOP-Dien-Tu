@@ -14,6 +14,7 @@ import com.mycompany.dientuoop.HuuTien.Customer;
 import com.mycompany.dientuoop.HuuTien.CustomerList;
 import com.mycompany.dientuoop.HuuTien.Order;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -69,7 +70,7 @@ public class MainApp {
     }
 
     // Menus
-    public void mainMenu() throws IOException {
+    public void mainMenu() throws IOException, ParseException {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
@@ -222,20 +223,18 @@ public class MainApp {
         productManager.nhap();
     }
     
-    public void orderMenu() {
+    public void orderMenu() throws IOException, ParseException {
         
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
             System.out.println("=== Bảng đơn hàng ===");
             System.out.println("1. Xem danh sách đơn hàng");
-            System.out.println("2. Xem chi tiết đơn hàng");
-            System.out.println("3. Sửa đơn hàng");
-            System.out.println("4. Xóa đơn hàng");
-            System.out.println("5. Tìm kiếm đơn hàng");
-            System.out.println("6. Nhập đơn hàng mới");
-            System.out.println("7. Xuất đơn hàng");
-            System.out.println("8. Xem thống kê doanh thu");
+            System.out.println("2. Sửa đơn hàng");
+            System.out.println("3. Xóa đơn hàng");
+            System.out.println("4. Tìm kiếm đơn hàng");
+            System.out.println("5. Nhập đơn hàng mới");
+            System.out.println("6. Xem thống kê doanh thu");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -243,23 +242,20 @@ public class MainApp {
                 case 1:
                     orderMenuInsight();
                     break;
-                case 2:
-                    orderDetailMenu();
-                    break;
-                case 3: 
+                case 2: 
                     editOrder();
                     break;
-                case 4:
+                case 3:
                     deleteOrder();
                     break;
-                case 5:
+                case 4:
                     searchOrder();
                     break;
-                case 6:
+                case 5:
                     addOrder();
                     break;
-                case 7:
-                    exportOrder();
+                case 6:
+                    orderStatistics();
                     break;
                 case 0:
                     System.out.println("Quay lại menu chính...");
@@ -269,27 +265,48 @@ public class MainApp {
             }
         } while (choice != 0);
     }
-public void orderMenuInsight(){
+public void orderMenuInsight() throws IOException, ParseException{
 //    OrderList ol = new OrderList(fileHandler);
-    orderManager.getAll();
-}
-public void orderDetailMenu(){
-    
+System.out.println("=== Danh sách đơn hàng ===");
+//        ProductList pl = new ProductList();
+        orderManager.load("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
 }
 //editOrder, deleteOrder,searchOrder,addOrder,exportOrder
 public void editOrder(){
-    
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhập mã sản phẩm cần sửa: ");
+    String id = sc.nextLine();
+//    ProductList pl = new ProductList(fileHandler);
+    orderManager.sua(id);
 }
 public void deleteOrder(){
-    
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhập mã đơn hàng cần xóa: ");
+    String id = sc.nextLine();
+    orderManager.xoa(id);
+    System.out.println("Đơn hàng đã được xóa!");
 }
-public void searchOrder(){
-    
+public void searchOrder() throws IOException, ParseException{
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhập tên đơn hàng cần tìm: ");
+    String name = sc.nextLine();
+//    ProductList pl = new ProductList(fileHandler);
+    orderManager.load("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+    Product found = productManager.timKiem(name);
+    if (found != null) {
+//        found.displayInfo();
+        System.out.println("Tìm thấy đơn hàng");
+        System.out.println(found.toString());
+    } else {
+        System.out.println("Không tìm thấy đơn hàng với tên: " + name);
+    }
 }
-public void addOrder(){
-    
+public void addOrder() throws ParseException{
+    order.nhap(); 
+    orderManager.them(order);
+    System.out.println("Đơn hàng đã được thêm!");
 }
-public void exportOrder(){
+public void orderStatistics(){
     
 }
 
@@ -509,7 +526,7 @@ public void exportWarranty(){
     
 }
     // Main method to run the application
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         MainApp app = new MainApp();
         app.mainMenu();
     }

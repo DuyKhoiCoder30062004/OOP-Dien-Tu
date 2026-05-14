@@ -1,9 +1,19 @@
 package com.mycompany.dientuoop.HuuTien;
+//import com.mycompany.dientuoop.Hien.Product;
 import java.util.*;
 import com.mycompany.dientuoop.Khoi.FileHandler;
 import com.mycompany.dientuoop.Khoi.IQuanLy;
 import com.mycompany.dientuoop.Khoi.Utils;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 public class OrderList implements IQuanLy<Order> {
     private List<Order> dsHoaDon;
     private int soLuongHD;
@@ -18,6 +28,7 @@ public class OrderList implements IQuanLy<Order> {
     */
     public OrderList(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
+         this.dsHoaDon = new ArrayList<>();
     }
     public OrderList(Utils utils){
         this.utils = utils;
@@ -53,12 +64,22 @@ public class OrderList implements IQuanLy<Order> {
     }
 
     public void thongKeDoanhThu() {
-        double total = 0;
-        for (Order o : dsHoaDon) {
-            total += o.tinhTong();
-        }
-        System.out.println("Tổng doanh thu: " + total);
+    double total = 0;
+    for (Order o : dsHoaDon) {
+        total += o.tinhTong();
     }
+    System.out.println("Tổng doanh thu: " + total);
+
+    // Lưu vào file
+    try (BufferedWriter writer = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream("C:\\Users\\HELLO\\Downloads\\hoadon.txt", false), "UTF-8"))) {
+        writer.write("Tổng doanh thu: " + total);
+        writer.newLine();
+        System.out.println("Đã lưu doanh thu vào file");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
     @Override
     public Order timKiem(String maDonHang) {
         try {
@@ -97,11 +118,24 @@ public class OrderList implements IQuanLy<Order> {
     public void xoa(String maDonHang) {
 //        dsHoaDon.removeIf(o -> o.getMaHD().equals(maDonHang));
 //        soLuongHD = dsHoaDon.size();
+ boolean removed = dsHoaDon.removeIf(l -> l.getMaHD().equals(maDonHang));
+        if(removed){
+        fileHandler.saveToFileDelete(dsHoaDon, "C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+        System.out.println("Đã xóa đơn hàng có mã: " + maDonHang);// lưu ngay sau khi thêm
+    }else{
+            System.out.println("Không tìm thấy đơn hàng với mã: " + maDonHang);
+        }
     }
 
     @Override
     public void nhap() {
         // nhập dữ liệu từ bàn phím hoặc file
+        Order o = new Order();
+        try {
+            o.nhap();
+        } catch (ParseException ex) {
+            System.getLogger(OrderList.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     @Override
@@ -120,21 +154,52 @@ public class OrderList implements IQuanLy<Order> {
         fileHandler.saveToFile(dsHoaDon, fileName);
     }
 
-    public void load(String fileName) throws IOException {
-        dsHoaDon = (List<Order>) fileHandler.readFromFile(fileName);
-//        dsHoaDon = temp;
-        soLuongHD = dsHoaDon.size();
-             
+     public void load(String fileName) throws IOException, ParseException {
+    dsHoaDon = new ArrayList<>();
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    // Call your existing readFromFile (prints lines, returns null)
+    fileHandler.readFromFile(fileName);
+
+    // After printing, re-open the file to actually parse into Product objects
+    try (BufferedReader reader = new BufferedReader(
+            new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            if (parts.length == 8) { //MaHD, ngayLap, tongTien, tinhTrangDon
+                Order o = new Order();
+                o.setMaHD(parts[0].trim());
+                Date d = sdf.parse(parts[1].trim());
+                o.setNgayLap(d);
+                o.setTongTien(Double.parseDouble(parts[2].trim()));
+                o.setTinhTrangDon(Integer.parseInt(parts[3].trim()));
+                dsHoaDon.add(o);
+            }
+        }
     }
+    soLuongHD = dsHoaDon.size();
+    System.out.println("Đã tải " + soLuongHD + " Đơn hàng từ file " + fileName);
+     }
 
     @Override
     public void sua(String id) {
-         for (Order o : dsHoaDon ) {
-            if (o.getMaHD().equals(id)) {
+         boolean found = false;
+    for (Order o : dsHoaDon) {
+        if (o.getMaHD().equals(id)) {
+            System.out.println("Nhập lại thông tin cho đơn hàng có mã: " + id);
+            try {
                 o.nhap(); // cho phép nhập lại thông tin
-                fileHandler.saveToFile(dsHoaDon, "C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+            } catch (ParseException ex) {
+                System.getLogger(OrderList.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
+            fileHandler.saveToFileEdit(dsHoaDon, "C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+            found = true;
+            break;
         }
-        System.out.println("Không tìm thấy hóa đơn với mã: " + id);     
     }
+    if (!found) {
+        System.out.println("Không tìm thấy đơn hàng với mã: " + id);
+    }
+}
 }

@@ -100,10 +100,10 @@ public class MainApp {
                     warrantyMenu();
                     break;
                 case 0:
-                    System.out.println("Thoát khỏi chương trình...");
+                    System.out.println("Thoat khoi chuong trinh...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ, vui lòng thử lại.");
+                    System.out.println("Lua chon khong hop le, vui long thu lai.");
             }
         } while (choice != 0);
         sc.close();
@@ -117,14 +117,14 @@ public class MainApp {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-        System.out.println("=== Bảng sản phẩm ===");
-            System.out.println("1. Xem danh sách sản phẩm tồn kho");
-            System.out.println("2. Xem chi tiết sản phẩm");
-            System.out.println("3. Thêm sản phẩm mới");
-            System.out.println("4. Sửa sản phẩm");
-            System.out.println("5. Xóa sản phẩm");
-            System.out.println("6. Tìm kiếm sản phẩm");
-            System.out.println("0. Quay lại");
+        System.out.println("=== Bang san pham ===");
+            System.out.println("1. Xem danh sach san pham ton kho");
+            System.out.println("2. Xem chi tiet san pham");
+            System.out.println("3. Them san pham moi");
+            System.out.println("4. Sua san pham");
+            System.out.println("5. Xoa san pham");
+            System.out.println("6. Tim kiem san pham");
+            System.out.println("0. Quay lai");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
             switch (choice) {
@@ -147,7 +147,7 @@ public class MainApp {
                 searchProduct();
                 break;
             case 0:
-                System.out.println("Quay lại menu chính...");
+                System.out.println("Quay lai menu chinh...");
                 break;
             default:
                 System.out.println("Invalid choice, please try again.");
@@ -163,8 +163,8 @@ public class MainApp {
     }
     //2. Danh sách chi tiết sản phẩm
     public void productDetailMenu(){
-        System.out.println("=== Bảng chi tiết sản phẩm ===");
-        System.out.println("=== Chọn xem 1 trong 3 loại sản phẩm ===");
+        System.out.println("=== Bang chi tiet san pham ===");
+        System.out.println("=== Chon xem 1 trong 3 loai san pham ===");
         //gọi hàm chi tiết sản phẩm ntn?
     } 
     //3.thêm sản phẩm
@@ -182,12 +182,12 @@ public class MainApp {
 //Bằng cách nào đó trong ProductList của nó phải chứa
 //đối tượng Product có các tham số trong lòng của Product?!
     productManager.them(product);
-    System.out.println("Sản phẩm đã được thêm!");
+    System.out.println("San pham da duoc thm!");
     }
     //4.sửa sản phẩm sửa SP cũng tương tự như thêm, phải thao tác với list trước,rồi lấy từ File
     public void editProduct(){
         Scanner sc = new Scanner(System.in);
-    System.out.print("Nhập mã sản phẩm cần sửa: ");
+    System.out.print("Nhap ma san pham can sua: ");
     String id = sc.nextLine();
 //    ProductList pl = new ProductList(fileHandler);
     productManager.sua(id);
@@ -196,25 +196,25 @@ public class MainApp {
     //5.xóa sản phẩm
     public void deleteProduct(){
          Scanner sc = new Scanner(System.in);
-    System.out.print("Nhập mã sản phẩm cần xóa: ");
+    System.out.print("Nhap ma san pham can xoa: ");
     String id = sc.nextLine();
     productManager.xoa(id);
-    System.out.println("Sản phẩm đã được xóa!");
+    System.out.println("San pham da duoc xoa!");
     }
     //6.Tìm kiếm sản phẩm
     public void searchProduct() throws IOException{
         Scanner sc = new Scanner(System.in);
-    System.out.print("Nhập tên sản phẩm cần tìm: ");
+    System.out.print("Nhap ten san pham can tim: ");
     String name = sc.nextLine();
 //    ProductList pl = new ProductList(fileHandler);
     productManager.load("C:\\Users\\HELLO\\Downloads\\sanpham.txt");
     Product found = productManager.timKiem(name);
     if (found != null) {
 //        found.displayInfo();
-        System.out.println("Tìm thấy sản phẩm");
+        System.out.println("Tim thay san pham");
         System.out.println(found.toString());
     } else {
-        System.out.println("Không tìm thấy sản phẩm với tên: " + name);
+        System.out.println("Khong tim thay san pham voi ten: " + name);
     }
     }
     //7.nhập sản phẩm mới
@@ -228,13 +228,13 @@ public class MainApp {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("=== Bảng đơn hàng ===");
-            System.out.println("1. Xem danh sách đơn hàng");
-            System.out.println("2. Sửa đơn hàng");
-            System.out.println("3. Xóa đơn hàng");
-            System.out.println("4. Tìm kiếm đơn hàng");
-            System.out.println("5. Nhập đơn hàng mới");
-            System.out.println("6. Xem thống kê doanh thu");
+            System.out.println("=== Bang don hang ===");
+            System.out.println("1. Xem danh sach don hang");
+            System.out.println("2. Sua don hang");
+            System.out.println("3. Xoa don hang");
+            System.out.println("4. Tim kiem don hang");
+            System.out.println("5. Nhap don hang moi");
+            System.out.println("6. Xem thong ke doanh thu");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -258,30 +258,30 @@ public class MainApp {
                     orderStatistics();
                     break;
                 case 0:
-                    System.out.println("Quay lại menu chính...");
+                    System.out.println("Quay lai menu chinh...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại.");
+                    System.out.println("Lua chon khong hop le, vui long nhap lai.");
             }
         } while (choice != 0);
     }
 public void orderMenuInsight() throws IOException, ParseException{
 //    OrderList ol = new OrderList(fileHandler);
-System.out.println("=== Danh sách đơn hàng ===");
+System.out.println("=== Danh sach don hang ===");
 //        ProductList pl = new ProductList();
         orderManager.load("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
 }
 //editOrder, deleteOrder,searchOrder,addOrder,exportOrder
 public void editOrder(){
     Scanner sc = new Scanner(System.in);
-    System.out.print("Nhập mã sản phẩm cần sửa: ");
+    System.out.print("Nhap ma san pham can sua: ");
     String id = sc.nextLine();
 //    ProductList pl = new ProductList(fileHandler);
     orderManager.sua(id);
 }
 public void deleteOrder(){
     Scanner sc = new Scanner(System.in);
-    System.out.print("Nhập mã đơn hàng cần xóa: ");
+    System.out.print("Nhap ma don hang can xoa: ");
     String id = sc.nextLine();
     orderManager.xoa(id);
     System.out.println("Đơn hàng đã được xóa!");
@@ -492,10 +492,10 @@ public void exportCustomer(){
                     exportWarranty();
                     break;
                 case 0:
-                    System.out.println("Thoát khỏi chương trình...");
+                    System.out.println("Thoat khoi chuong trinh...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại.");
+                    System.out.println("Lua chon khong hop le, vui long nhap lai.");
             }
         } while (choice != 0);
         // Add product-related options and logic here

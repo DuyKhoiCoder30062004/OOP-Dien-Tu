@@ -31,9 +31,23 @@ It follows OOP principles with UML-driven design to ensure maintainability and s
 - Designed <mark>UML Class Diagram</mark> to model system entities and dependencies  
 - Implemented maintainable <mark>OOP Structure</mark>  
 
----
 
 ## 📌 How to Run
 1. Clone the repository:
    ```bash
    git clone https://github.com/DuyKhoiCoder30062004/OOP-Dien-Tu.git
+
+### 📌 Illustration - Demo
+```markdown
+## Screenshots
+<div align="center">
+  <img src="./docs/screenshot.png" width="70%" />
+</div>
+
+---
+
+## Contribution
+Developed by a team of 4 students as part of academic coursework.  
+
+## License
+This project is for educational purposes only.

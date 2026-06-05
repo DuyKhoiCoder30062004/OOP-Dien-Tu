@@ -36,18 +36,17 @@ It follows OOP principles with UML-driven design to ensure maintainability and s
 1. Clone the repository:
    ```bash
    git clone https://github.com/DuyKhoiCoder30062004/OOP-Dien-Tu.git
+2. Open the project in your IDE (e.g., IntelliJ, Eclipse).
+3. Compile and run the Main.java file.
 
-### 📌 Illustration - Demo
-```markdown
-## Screenshots
+## 📌 Screenshots
 <div align="center">
   <img src="./docs/screenshot.png" width="70%" />
 </div>
 
----
 
-## Contribution
+## 📌 Contribution
 Developed by a team of 4 students as part of academic coursework.  
 
-## License
+## 📌 License
 This project is for educational purposes only.

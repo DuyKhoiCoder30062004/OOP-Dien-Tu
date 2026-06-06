@@ -14,9 +14,8 @@ This project was developed as an academic assignment to practice **Object-Orient
 ---
 
 ## 📌 Overview
-The system is designed to manage store operations such as product inventory, customer data, and sales transactions.  
-It follows OOP principles with UML-driven design to ensure maintainability and scalability.
-
+The system manages store operations including product inventory (laptops, phones, accessories), suppliers, employees, customers, orders, warranty, and import receipts.  
+It applies OOP principles with UML-based design for scalability and maintainability.
 ---
 
 ## 📌 Features

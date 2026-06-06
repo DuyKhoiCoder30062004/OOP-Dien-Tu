@@ -21,9 +21,8 @@ It applies OOP principles with UML-based design for scalability and maintainabil
 ## 📌 Features
 - <mark>Menu Navigation</mark> for system functions  
 - <mark>File I/O Handling</mark> with text files  
-- <mark>CRUD Operations</mark> (add, edit, delete, search)  
-- <mark>Dependency Relationships</mark> between entities in UML Class Diagram  
-
+- <mark>Statistics</mark> and report.  
+- <mark>Add, edit, delete, and search</mark> for products, employees, suppliers, import receipts, and warranty receipts
 ---
 
 ## 📌 System Design

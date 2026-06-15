@@ -3,6 +3,7 @@ https://copilot.microsoft.com/shares/WC19DnJusSBEWvAB487iw
 12/03/2026
 
 ## Cấu hình database, bảo mật, email
+# TEST CHO SPRINGBOOT NETBEANS
 # DBQLKS (connection) → application.properties
 
 # Không viết class kết nối thủ công nữa.

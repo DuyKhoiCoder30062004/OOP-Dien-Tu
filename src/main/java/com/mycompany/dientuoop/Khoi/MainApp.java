@@ -1,6 +1,3 @@
-
-
-
 package com.mycompany.dientuoop.Khoi;
 
 import com.mycompany.dientuoop.AnhVu.Employee;
@@ -17,6 +14,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Scanner;
 public class MainApp {
     // Managers
@@ -39,11 +37,14 @@ public class MainApp {
     private EmployeeList employeeManager;
     private CustomerList customerManager;
     private WarrantyList warrantyManager;
+    private ImportList importManager;
+    private SupplierList supplierManager;
     private Product product;
     private Order order;
     private Employee employee;
     private Customer customer;
     private Warranty warranty;
+    private ImportReceipt importReceipt;
     private String productListFile = "C:\\Users\\HELLO\\Documents\\NetBeansProjects\\DienTuOOP\\src\\main\\java\\com.mycompany.dientuoop.file\\sanpham.txt";
     private String orderListFile = "C:\\\\Users\\\\HELLO\\\\Downloads\\\\C:\\Users\\HELLO\\Documents\\NetBeansProjects\\DienTuOOP\\src\\main\\java\\com.mycompany.dientuoop.file\\hoadon.txt";
     private String employeeListFile = "C:\\\\Users\\\\HELLO\\\\Downloads\\\\C:\\Users\\HELLO\\Documents\\NetBeansProjects\\DienTuOOP\\src\\main\\java\\com.mycompany.dientuoop.file\\nhanvien.txt";
@@ -80,6 +81,8 @@ public class MainApp {
             System.out.println("3. Employee Menu");
             System.out.println("4. Customer Menu");
             System.out.println("5. Warranty Menu");
+            System.out.println("6. Import Menu");
+            System.out.println("7. Supplier Menu");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -99,6 +102,12 @@ public class MainApp {
                 case 5:
                     warrantyMenu();
                     break;
+                case 6:
+                    importMenu();
+                    break;
+                case 7:
+                    supplierMenu();
+                    break;
                 case 0:
                     System.out.println("Thoat khoi chuong trinh...");
                     break;
@@ -117,6 +126,7 @@ public class MainApp {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
+            //implement 2nd version của Linkedlist luôn
         System.out.println("=== Bang san pham ===");
             System.out.println("1. Xem danh sach san pham ton kho");
             System.out.println("2. Xem chi tiet san pham");
@@ -157,7 +167,7 @@ public class MainApp {
     //1. Danh sách sản phẩm
 //    l
     public void productMenuInsight() throws IOException{
-        System.out.println("=== Danh sách sản phẩm ===");
+        System.out.println("=== Danh sách san pham ===");
 //        ProductList pl = new ProductList();
         productManager.load("C:\\Users\\HELLO\\Downloads\\sanpham.txt");
     }
@@ -169,7 +179,6 @@ public class MainApp {
     } 
     //3.thêm sản phẩm
     public void addProduct(){
-//        ProductList pl = new ProductList(fileHandler);
     product.nhap(); // Dựa vào hàm này nhap() để nhét tham số (thuộc tính vào, rồi nó lưu vào list)
     //do cái nhap này là để lưu các properties vào constructor trước
     // có cần lưu vào file luôn, rồi mới có filled data để cho vô list
@@ -189,9 +198,7 @@ public class MainApp {
         Scanner sc = new Scanner(System.in);
     System.out.print("Nhap ma san pham can sua: ");
     String id = sc.nextLine();
-//    ProductList pl = new ProductList(fileHandler);
     productManager.sua(id);
-//    System.out.print("Sản phẩm Đã được chỉnh sửa thành công: ");
     }
     //5.xóa sản phẩm
     public void deleteProduct(){
@@ -284,21 +291,21 @@ public void deleteOrder(){
     System.out.print("Nhap ma don hang can xoa: ");
     String id = sc.nextLine();
     orderManager.xoa(id);
-    System.out.println("Đơn hàng đã được xóa!");
+    System.out.println("Don hang da duoc xoa!");
 }
 public void searchOrder() throws IOException, ParseException{
     Scanner sc = new Scanner(System.in);
-    System.out.print("Nhập tên đơn hàng cần tìm: ");
+    System.out.print("Nhap ten don hang can tim: ");
     String name = sc.nextLine();
 //    ProductList pl = new ProductList(fileHandler);
     orderManager.load("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
     Product found = productManager.timKiem(name);
     if (found != null) {
 //        found.displayInfo();
-        System.out.println("Tìm thấy đơn hàng");
+        System.out.println("Tim thay don hang");
         System.out.println(found.toString());
     } else {
-        System.out.println("Không tìm thấy đơn hàng với tên: " + name);
+        System.out.println("Khong tim thay don hang voi ten: " + name);
     }
 }
 public void addOrder() throws ParseException{
@@ -316,13 +323,13 @@ public void orderStatistics(){
         int choice;
         do {
          System.out.println("=== Employee Menu ===");
-            System.out.println("1. Xem danh sách nhân viên");
-            System.out.println("2. Xem chi tiết nhân viên");
-            System.out.println("3. Xem thống kê lương nhân viên");
-            System.out.println("4. Thêm nhân viên mới");
-            System.out.println("5. Sửa nhân viên");
-            System.out.println("6. Xóa nhân viên");
-            System.out.println("7. Tìm kiếm nhân viên");
+            System.out.println("1. Xem danh sach nhan vien");
+            System.out.println("2. Xem chi tiet nhan vien");
+            System.out.println("3. Xem thong ke luong nhan vien");
+            System.out.println("4. Them nhan vien moi");
+            System.out.println("5. Sua nhan vien");
+            System.out.println("6. Xoa nhan vien");
+            System.out.println("7. Tim kiem nhan vien");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -349,10 +356,10 @@ public void orderStatistics(){
                     searchEmployee();
                     break;
                 case 0:
-                    System.out.println("Thoát khỏi chương trình...");
+                    System.out.println("Quay lai menu chinh...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không phù hợp, vui lòng chọn lại.");
+                    System.out.println("Lua chon khong phu hop, vui long chon lai.");
             }
         } while (choice != 0);
     }
@@ -384,16 +391,16 @@ public void employeeDetailMenu(){
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-        System.out.println("=== Bảng khách hàng ===");
+        System.out.println("=== Bang khach hang ===");
         //lấy data từ file mà ra
         //1. xem danh sach sp ton kho => danh mục (laptop,phone,accessory) => list sp
-            System.out.println("1. Xem danh sách khách hàng");
-            System.out.println("2. Xem chi tiết khách hàng");
-            System.out.println("3. Thêm khách hàng mới");
-            System.out.println("4. Sửa khách hàng");
-            System.out.println("5. Xóa khách hàng");
-            System.out.println("6. Tìm kiếm khách hàng");
-            System.out.println("7. Xuất khách hàng");
+            System.out.println("1. Xem danh sach khach hang");
+            System.out.println("2. Xem chi tiet khach hang");
+            System.out.println("3. Them khach hang moi");
+            System.out.println("4. Sua khach hang");
+            System.out.println("5. Xoa khach hang");
+            System.out.println("6. Tim kiem khach hang");
+            System.out.println("7. Xuat khach hang");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -420,10 +427,10 @@ public void employeeDetailMenu(){
                     exportCustomer();
                     break;
                 case 0:
-                    System.out.println("Thoát khỏi chương trình...");
+                    System.out.println("Quay lai menu chinh...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại.");
+                    System.out.println("Lua chon khong hop le, vui long nhap lai.");
             }
         } while (choice != 0);
         // Add product-related options and logic here
@@ -452,20 +459,20 @@ public void searchCustomer(){
 public void exportCustomer(){
     
 }
-    public void warrantyMenu(){
+public void warrantyMenu(){
     Scanner sc = new Scanner(System.in);
         int choice;
         do {
-        System.out.println("=== Bảng phiếu bảo hành ===");
+        System.out.println("=== Bang phieu bao hanh ===");
         //lấy data từ file mà ra
         //1. xem danh sach sp ton kho => danh mục (laptop,phone,accessory) => list sp
-            System.out.println("1. Xem danh sách phiếu bảo hành");
-            System.out.println("2. Xem chi tiết phiếu bảo hành");
-            System.out.println("3. Thêm phiếu bảo hành mới");
-            System.out.println("4. Sửa phiếu bảo hành");
-            System.out.println("5. Xóa phiếu bảo hành");
-            System.out.println("6. Tìm kiếm phiếu bảo hành");
-            System.out.println("7. Xuất danh sách phiếu bảo hành");
+            System.out.println("1. Xem danh sach phieu bao hanh");
+            System.out.println("2. Xem chi tiet phieu bao hanh");
+            System.out.println("3. Them phieu bao hanh moi");
+            System.out.println("4. Sua phieu bao hanh");
+            System.out.println("5. Xoa phieu bao hanh");
+            System.out.println("6. Tim kiem phieu bao hanh");
+            System.out.println("7. Xuat danh sach phieu bao hanh");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
@@ -492,7 +499,7 @@ public void exportCustomer(){
                     exportWarranty();
                     break;
                 case 0:
-                    System.out.println("Thoat khoi chuong trinh...");
+                    System.out.println("Quay lai menu chinh...");
                     break;
                 default:
                     System.out.println("Lua chon khong hop le, vui long nhap lai.");
@@ -525,10 +532,321 @@ public void searchWarranty(){
 public void exportWarranty(){
     
 }
+public void importMenu() throws IOException, ParseException{
+    Scanner sc = new Scanner(System.in);
+        int choice;
+        do {
+        System.out.println("=== Bang phieu nhap ===");
+        //lấy data từ file mà ra
+        //1. xem danh sach sp ton kho => danh mục (laptop,phone,accessory) => list sp
+            System.out.println("1. Xem danh sach phieu nhap");
+            System.out.println("2. Xem chi tiet phieu nhap");
+            System.out.println("3. Them phieu nhap moi");
+            System.out.println("4. Sua phieu nhap");
+            System.out.println("5. Xoa phieu nhap");
+            System.out.println("6. Tim kiem phieu nhap");
+            System.out.println("7. Xuat danh sach phieu nhap");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    importMenuInsight();
+                    break;
+                case 2:
+                    importDetailMenu();
+                    break;
+                case 3:
+                    addImport(); 
+                    break;
+                case 4:
+                    editImport();
+                    break;
+                case 5:
+                    deleteImport();
+                    break;
+                case 6:
+                    searchImport();
+                    break;
+                case 7:
+                    exportImport();
+                    break;
+                case 0:
+                    System.out.println("Quay lai menu chinh...");
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le, vui long nhap lai.");
+            }
+        } while (choice != 0);
+}
+public void importMenuInsight() throws IOException, ParseException{
+        System.out.println("=== Danh sach phieu nhap ===");
+        orderManager.load("C:\\Users\\HELLO\\Downloads\\phieunhap.txt");
+}
+private void importDetailMenu(){}
+//editOrder, deleteOrder,searchOrder,addOrder,exportOrder
+public void addImport() throws ParseException{
+    order.nhap(); 
+    orderManager.them(order);
+    System.out.println("Đơn hàng đã được thêm!");
+}
+public void editImport(){
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap ma phieu nhap can sua: ");
+    String id = sc.nextLine();
+//    ProductList pl = new ProductList(fileHandler);
+    orderManager.sua(id);
+}
+public void deleteImport(){
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap ma don hang can xoa: ");
+    String id = sc.nextLine();
+    orderManager.xoa(id);
+    System.out.println("Don hang da duoc xoa!");
+}
+public void searchImport() throws IOException, ParseException{
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap ten don hang can tim: ");
+    String name = sc.nextLine();
+//    ProductList pl = new ProductList(fileHandler);
+    orderManager.load("C:\\Users\\HELLO\\Downloads\\hoadon.txt");
+    Product found = productManager.timKiem(name);
+    if (found != null) {
+//        found.displayInfo();
+        System.out.println("Tim thay don hang");
+        System.out.println(found.toString());
+    } else {
+        System.out.println("Khong tim thay don hang voi ten: " + name);
+    }
+}
+private void exportImport(){}
+public void supplierMenu() throws IOException, ParseException{
+ Scanner sc = new Scanner(System.in);
+        int choice;
+        do {
+        System.out.println("=== Bang nha cung cap ===");
+        //lấy data từ file mà ra
+        //1. xem danh sach sp ton kho => danh mục (laptop,phone,accessory) => list sp
+            System.out.println("1. Xem danh sach nha cung cap");
+            System.out.println("2. Them nha cung cap");
+            System.out.println("3. Sua nha cung cap");
+            System.out.println("4. Xoa nha cung cap");
+            System.out.println("5. Tim kiem nha cung cap");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    supplierMenuInsight();
+                    break;
+                case 2:
+                    addSupplier(); 
+                    break;
+                case 3:
+                    editSupplier();
+                    break;
+                case 4:
+                    deleteSupplier();
+                    break;
+                case 5:
+                    searchSupplier();
+                    break;
+                case 0:
+                    System.out.println("Quay lai menu chinh...");
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le, vui long nhap lai.");
+            }
+        } while (choice != 0);
+}
+public void supplierMenuInsight() throws IOException, ParseException{
+        System.out.println("=== Danh sach nha cung cap ===");
+        orderManager.load("C:\\Users\\HELLO\\Downloads\\phieunhap.txt");
+}
+public void addSupplier() throws ParseException{
+    order.nhap(); 
+    orderManager.them(order);
+    System.out.println("Nha cung cap da duoc them!");
+}
+public void editSupplier(){
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap ma nha cung cap can sua: ");
+    String id = sc.nextLine();
+//    ProductList pl = new ProductList(fileHandler);
+    orderManager.sua(id);
+}
+public void deleteSupplier(){
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap ma nha cung cap can xoa: ");
+    String id = sc.nextLine();
+    orderManager.xoa(id);
+    System.out.println("Nha cung cap da duoc xoa!");
+}
+public void searchSupplier() throws IOException, ParseException{
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Nhap ten nha cung cap can tim: ");
+    String name = sc.nextLine();
+//    ProductList pl = new ProductList(fileHandler);
+    orderManager.load("C:\\Users\\HELLO\\Downloads\\nhacungcap.txt");
+    Product found = productManager.timKiem(name);
+    if (found != null) {
+//        found.displayInfo();
+        System.out.println("Tim thay nha cung cap");
+        System.out.println(found.toString());
+    } else {
+        System.out.println("Khong tim thay nha cung cap voi ten: " + name);
+    }
+}
+ public void baiTap(){
+     /*
+   Hãy khai báo cấu trúc dữ liệu cho danh sách liên kết đơn các thí sinh. 
+Giả sử thí sinh gồm những thành phần thông tin như sau:
+- Mã thí sinh: tối đa 5 ký tự.
+- Họ tên: tối đa 30 ký tự. 
+- Điểm toán: kiểu số thực.
+- Điểm lý: kiểu số thực. 
+- Điểm hóa: kiểu số thực.
+- Điểm tổng cộng: kiểu số thực. 
+*/
+     //Thêm sửa xóa thí sinh?
+     //Process: 
+     //1. Khai báo linked list singly?! (singly linked list trong Java)
+     //2. SWTICH CASE(1. Thêm thí sinh, 2. Sửa thí sinh, 3. Xóa thí sinh, 4. Xem danh sách thí sinh)
+     //3. Thuật toán, thêm sửa xóa xem danh sách dựa vào linked list
+     
+     /*
+     class ThiSinh {
+    String maThiSinh;   // tối đa 5 ký tự
+    String hoTen;       // tối đa 30 ký tự
+    double diemToan;
+    double diemLy;
+    double diemHoa;
+    double diemTongCong;
+
+    ThiSinh(String ma, String ten, double toan, double ly, double hoa) {
+        this.maThiSinh = ma;
+        this.hoTen = ten;
+        this.diemToan = toan;
+        this.diemLy = ly;
+        this.diemHoa = hoa;
+        this.diemTongCong = toan + ly + hoa;
+    }
+}
+
+class Node {
+    ThiSinh data;
+    Node next;
+
+    Node(ThiSinh ts) {
+        this.data = ts;
+        this.next = null;
+    }
+}
+
+class SinglyLinkedList {
+    Node head;
+
+    // thêm thí sinh vào đầu danh sách
+    void addFirst(ThiSinh ts) {
+        Node newNode = new Node(ts);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // xóa thí sinh đầu tiên
+    void removeFirst() {
+        if (head != null) {
+            head = head.next;
+        }
+    }
+
+    // tìm thí sinh theo mã
+    ThiSinh findByMa(String ma) {
+        Node current = head;
+        while (current != null) {
+            if (current.data.maThiSinh.equals(ma)) {
+                return current.data;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+}
+
+     class SinglyLinkedList {
+    Node head;
+
+    // thêm thí sinh vào đầu danh sách
+    void addFirst(ThiSinh ts) {
+        Node newNode = new Node(ts);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // xóa thí sinh đầu tiên
+    void removeFirst() {
+        if (head != null) {
+            head = head.next;
+        }
+    }
+
+    // tìm thí sinh theo mã
+    ThiSinh findByMa(String ma) {
+        Node current = head;
+        while (current != null) {
+            if (current.data.maThiSinh.equals(ma)) {
+                return current.data;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+
+    // sửa điểm của thí sinh theo mã
+    boolean updateDiem(String ma, double toan, double ly, double hoa) {
+        Node current = head;
+        while (current != null) {
+            if (current.data.maThiSinh.equals(ma)) {
+                current.data.diemToan = toan;
+                current.data.diemLy = ly;
+                current.data.diemHoa = hoa;
+                current.data.diemTongCong = toan + ly + hoa;
+                return true; // sửa thành công
+            }
+            current = current.next;
+        }
+        return false; // không tìm thấy
+    }
+
+    // xóa thí sinh theo mã
+    boolean removeByMa(String ma) {
+        if (head == null) return false;
+
+        // nếu thí sinh cần xóa nằm ở đầu
+        if (head.data.maThiSinh.equals(ma)) {
+            head = head.next;
+            return true;
+        }
+
+        Node current = head;
+        while (current.next != null) {
+            if (current.next.data.maThiSinh.equals(ma)) {
+                current.next = current.next.next; // bỏ qua node cần xóa
+                return true;
+            }
+            current = current.next;
+        }
+        return false; // không tìm thấy
+    }
+}
+
+     */
+ }
     // Main method to run the application
     public static void main(String[] args) throws IOException, ParseException {
         MainApp app = new MainApp();
-        app.mainMenu();
+//        app.mainMenu();
+        app.baiTap();
     }
 }
 

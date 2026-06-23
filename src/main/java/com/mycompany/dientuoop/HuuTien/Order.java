@@ -117,7 +117,15 @@ public class Order {
     // //String,Date,double,int
     @Override
     public String toString() {
-        return "Order{" + "MaHD=" + MaHD + ", ngayLap=" + ngayLap + ", tongTien=" + tongTien + ", tinhTrangDon=" + tinhTrangDon + ", dsChiTiet=" + dsChiTiet + ", khachHang=" + khachHang + ", nhanVien=" + nhanVien + ", fileHandler=" + fileHandler + '}';
+        return String.format("\t\t\t\t\tBảng thông tin đơn hàng\n"
+                + "------------------------------------------------------------------------------------------------------------------"
+                + "|\tMã hóa đơn\t|\tNgày lập hóa đơn\t|\tTổng tiền đơn hàng\t|   Tình trạng đơn hàng  |\n"
+                + "------------------------------------------------------------------------------------------------------------------"
+                + "|" +"\t    " + "%s" +"\t\t|" + "\t   " + "%s" 
+                + "\t\t\t" + "\t   "
+                + "%.2f" +  "\t\t"
+                + "|" +
+        MaHD, ngayLap, tongTien, tinhTrangDon);
     }
     
 }

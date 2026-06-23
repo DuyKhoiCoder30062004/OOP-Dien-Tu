@@ -177,7 +177,7 @@ public void xuat() {
 
     @Override
     public String toString() {
-        return String.format("%s|%s|%.2f|%d|%d|%s|%d|%.2f",
+        return String.format("%s \t|%s|%.2f|%d|%d|%s|%d|%.2f",
         maSP, tenSP, giaBan, trangThai, namSanXuat, imei, soLuong, phanTramGiam);
     }
 }
